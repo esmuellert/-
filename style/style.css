@@ -1,0 +1,8 @@
+.hide {
+    display: none;
+}
+
+#chessboard {
+    border-style: solid;
+    border-width: 2px;
+}
