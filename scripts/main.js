@@ -21,6 +21,21 @@ var index = {
     9: "zu4"
 };
 
+var inverseIndex = {
+    "caocao": 0,
+    "zhangfei": 1,
+    "machao": 2,
+    "huangzhong": 3,
+    "zhaoyun": 4,
+    "guanyu": 5,
+    "zu1": 6,
+    "zu2": 7,
+    "zu3": 8,
+    "zu4": 9,
+    "chessboard": -1
+}
+
+var chessmanPos = new Array();
 
 window.onload = function () {
     this.renderInterface();
@@ -65,12 +80,16 @@ function renderChessboard(layout) {
             var chess = document.getElementById(chessName);
             if (id == 0) {
                 renderBigSquare(chess, i, j, tempLayout);
+                chessmanPos[id] = [i, j];
             } else if(id >= 1 && id <= 4) {
                 renderVertical(chess, i, j, tempLayout);
+                chessmanPos[id] = [i, j];
             } else if(id == 5) {
                 renderHorizontal(chess, i, j, tempLayout);
+                chessmanPos[id] = [i, j];
             } else {
                 renderSquare(chess, i, j, tempLayout);
+                chessmanPos[id] = [i, j];
             }
             
         }
@@ -125,10 +144,24 @@ document.onmousedown = function (e) {
     if (targ.nodeType == 3) // defeat Safari bug
        targ = targ.parentNode
     var tname
-    tname=targ.id;
-    if (tname == "") tname = "3";
-    alert("You clicked on a " + tname + " element.")
-    
+    tname = targ.id;
+    if (tname == "") tname = "blank";
+    var chessman = inverseIndex[tname];
+    alert("You clicked on a " + tname + " element.");
+    if (tname != "blank" && chessman != -1) {
+        targ.addEventListener("mousemove", move);
+    }
+}
+
+function move(e) {
+    e = event || windows.event;
+    if (chessman > 5) {
+        var i = chessmanPos[chessman][0];
+        var j = chessmanPos[chessman][1];
+        var x = parseInt(target.style.left);
+        var y = parseInt(targ.style.top);
+        
+    }
 }
 
 
