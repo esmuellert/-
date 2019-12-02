@@ -164,11 +164,11 @@ function move(e) {
     e = event || windows.event;
     var currentarg = e.target;
     var targid = currentarg.id;
-    if (targid == "chessboard") {
+    var mouseX = Math.floor(e.offsetX / unit);
+    var mouseY = Math.floor(e.offsetY / unit);
+    if (targid == "chessboard" && mouseX >= 0 && mouseX < 4 && mouseY >=0 && mouseY <5) {
         var i = chessmanPos[chessman][0];
         var j = chessmanPos[chessman][1];
-        var mouseX = Math.floor(e.offsetX / unit);
-        var mouseY = Math.floor(e.offsetY / unit);
         var i10 = chessmanPos[10][0];
         var j10 = chessmanPos[10][1];
         var i11 = chessmanPos[11][0];
@@ -201,56 +201,76 @@ function move(e) {
                 renderChessboard(layout);
                 targ = document.getElementById(index[chessman]);
             }
-            else if (j - j10 == 1 && i == i10) {
-                layout[i][j + 1] = 10;
-                layout[i10][j10] = chessman;
+            else if (j - mouseX == 1 && i == mouseY) {
+                if (mouseX == j10 && mouseY == i10) {
+                    layout[i][j + 1] = 10;
+                }
+                else{
+                    layout[i][j + 1] = 11;
+                }
+                layout[mouseY][mouseX] = chessman;
                 renderChessboard(layout);
                 targ = document.getElementById(index[chessman]);
             }
-            else if (j - j11 == 1 && i == i11) {
-                layout[i][j + 1] = 10;
-                layout[i11][j11] = chessman;
-                renderChessboard(layout);
-                targ = document.getElementById(index[chessman]);
-            }
+            // else if (j - j11 == 1 && i == i11) {
+            //     layout[i][j + 1] = 11;
+            //     layout[i11][j11] = chessman;
+            //     renderChessboard(layout);
+            //     targ = document.getElementById(index[chessman]);
+            // }
 
-            else if (j10 - j == 2 && i == i10) {
-                layout[i][j] = 10;
-                layout[i10][j10] = chessman;
+            else if (mouseX - j == 2 && i == mouseY) {
+                if (mouseX == j10 && mouseY == i10) {
+                    layout[i][j] = 10;
+                }
+                else{
+                    layout[i][j] = 11;
+                }
+                layout[mouseY][mouseX] = chessman;
                 renderChessboard(layout);
                 targ = document.getElementById(index[chessman]);
             }
-            else if (j11 - j == 2 && i == i11) {
-                layout[i][j] = 10;
-                layout[i11][j11] = chessman;
-                renderChessboard(layout);
-                targ = document.getElementById(index[chessman]);
-            }
+            // else if (j11 - j == 2 && i == i11) {
+            //     layout[i][j] = 11;
+            //     layout[i11][j11] = chessman;
+            //     renderChessboard(layout);
+            //     targ = document.getElementById(index[chessman]);
+            // }
         }
 
         else if (chessman > 0 && chessman < 5) {
-            if (i - i10 == 1 && j == j10) {
-                layout[i + 1][j] = 10;
-                layout[i10][j10] = chessman;
-                renderChessboard(layout);
-                targ = document.getElementById(index[chessman]);
-            }
-            else if (i - i11 == 1 && j == j11) {
-                layout[i + 1][j] = 10;
-                layout[i11][j11] = chessman;
+            // if (i - i10 == 1 && j == j10) {
+            //     layout[i + 1][j] = 10;
+            //     layout[i10][j10] = chessman;
+            //     renderChessboard(layout);
+            //     targ = document.getElementById(index[chessman]);
+            // }
+            if (i - mouseY == 1 && j == mouseX) {
+                if (mouseX == j10 && mouseY == i10) {
+                    layout[i + 1][j] = 10;
+                }
+                else{
+                    layout[i + 1][j] = 11;
+                }
+                layout[mouseY][mouseX] = chessman;
                 renderChessboard(layout);
                 targ = document.getElementById(index[chessman]);
             }
 
-            else if (i10 - i == 2 && j == j10) {
-                layout[i][j] = 10;
-                layout[i10][j10] = chessman;
-                renderChessboard(layout);
-                targ = document.getElementById(index[chessman]);
-            }
-            else if (i11 - i == 2 && j == j11) {
-                layout[i][j] = 10;
-                layout[i11][j11] = chessman;
+            // else if (i10 - i == 2 && j == j10) {
+            //     layout[i][j] = 10;
+            //     layout[i10][j10] = chessman;
+            //     renderChessboard(layout);
+            //     targ = document.getElementById(index[chessman]);
+            // }
+            else if (mouseY - i == 2 && j == mouseX) {
+                if (mouseX == j10 && mouseY == i10) {
+                    layout[i][j] = 10;
+                }
+                else{
+                    layout[i][j] = 11;
+                }
+                layout[mouseY][mouseX] = chessman;
                 renderChessboard(layout);
                 targ = document.getElementById(index[chessman]);
             }
@@ -267,6 +287,44 @@ function move(e) {
                 layout[i + 1][j] = 11;
                 layout[i10][j10] = chessman;
                 layout[i11][j11] = chessman;
+                renderChessboard(layout);
+                targ = document.getElementById(index[chessman]);
+            }
+        }
+
+        else if (chessman == 0) {
+            if ((i - i10 == 1 && j == j10 && i - i11 == 1 && j + 1 == j11) || (i - i11 == 1 && j == j11 && i - i10 == 1 && j + 1 == j10)) {
+                layout[i10][j10] = chessman;
+                layout[i11][j11] = chessman;
+                layout[i + 1][j] = 10;
+                layout[i + 1][j + 1] = 11;
+                renderChessboard(layout);
+                targ = document.getElementById(index[chessman]);
+            }
+
+            else if ((j - j10 == 1 && i == i10 && j - j11 == 1 && i11 - i == 1) || (j - j11 == 1 && i == i11 && j - j10 == 1 && i10 - i == 1)) {
+                layout[i10][j10] = chessman;
+                layout[i11][j11] = chessman;
+                layout[i][j + 1] = 10;
+                layout[i + 1][j + 1] = 11; 
+                renderChessboard(layout);
+                targ = document.getElementById(index[chessman]);
+            }
+
+            else if ((j10 - j == 2 && i10 == i && j11 - j == 2 && i11 - i == 1) || (j10 - j == 2 && i10 == i && j11 - j == 2 && i11 - i == 1)) {
+                layout[i10][j10] = chessman;
+                layout[i11][j11] = chessman;
+                layout[i][j] = 10;
+                layout[i + 1][j] = 11;
+                renderChessboard(layout);
+                targ = document.getElementById(index[chessman]);
+            }
+
+            else if((i10 - i == 2 && j10 == j && i11 - i == 2 && j11 - j == 1) || (i11 - i == 2 && j11 == j && i10 - i == 2 && j10 - j == 1)) {
+                layout[i10][j10] = chessman;
+                layout[i11][j11] = chessman;
+                layout[i][j] = 10;
+                layout[i][j + 1] = 11;
                 renderChessboard(layout);
                 targ = document.getElementById(index[chessman]);
             }
