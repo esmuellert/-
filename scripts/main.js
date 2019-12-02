@@ -3,7 +3,7 @@ var layout = [
     [1, 0, 0, 2],
     [3, 5, 5, 4],
     [3, 6, 7, 4],
-    [8, -1, -1, 9]
+    [8, 10, 11, 9]
 ]
 
 var origin = [0, 0];
@@ -18,7 +18,9 @@ var index = {
     6: "zu1",
     7: "zu2",
     8: "zu3",
-    9: "zu4"
+    9: "zu4",
+    10: "chessboard1",
+    11: "chessboard2"
 };
 
 var inverseIndex = {
@@ -32,7 +34,8 @@ var inverseIndex = {
     "zu2": 7,
     "zu3": 8,
     "zu4": 9,
-    "chessboard": -1
+    "chessboard1": 10,
+    "chessboard2": 11,
 }
 
 var chessmanPos = new Array();
@@ -72,7 +75,7 @@ function renderChessboard(layout) {
         for (var j = 0; j < tempLayout[0].length; j++) {
             var id = tempLayout[i][j];
 
-            if (id < 0) {           // The chess is blank or should be skipped
+            if (id < 0 || id > 9) {           // The chess is blank or should be skipped
                 continue;
             }
 
@@ -136,8 +139,9 @@ function renderSquare(chess, i, j, tempLayout) {
     chess.style.top = i * unit + "px";
 }
 
+var chessman = 0;
+var targ;
 document.onmousedown = function (e) {
-    var targ
     if (!e) var e = window.event
     if (e.target) targ = e.target
     else if (e.srcElement) targ = e.srcElement
@@ -146,23 +150,42 @@ document.onmousedown = function (e) {
     var tname
     tname = targ.id;
     if (tname == "") tname = "blank";
-    var chessman = inverseIndex[tname];
-    alert("You clicked on a " + tname + " element.");
+    chessman = inverseIndex[tname];
+    //alert("You clicked on a " + tname + " element.");
     if (tname != "blank" && chessman != -1) {
-        targ.addEventListener("mousemove", move);
+        document.getElementById("chessboard").addEventListener("mousemove", move);
     }
 }
 
 function move(e) {
     e = event || windows.event;
-    if (chessman > 5) {
+    if (chessman > 5 && chessman < 10) {
         var i = chessmanPos[chessman][0];
         var j = chessmanPos[chessman][1];
-        var x = parseInt(target.style.left);
+        var x = parseInt(targ.style.left);
         var y = parseInt(targ.style.top);
+        var currentarg = e.target;
+        var targid = currentarg.id;
+        if (targid == "chessboard") {
+            var mouseX = Math.floor(e.offsetX / unit);
+            var mouseY = Math.floor(e.offsetY / unit);
+            if(Math.abs(mouseX - i + mouseY - j) == 1 && mouseX >= 0 && mouseX < 4 && mouseY >= 0 && mouseY < 5) {
+                var temp = layout[i][j];
+                layout[i][j] = layout[mouseY][mouseX];
+                layout[mouseY][mouseX] = temp;
+                renderChessboard(layout);
+                targ = document.getElementById(index[chessman])
+            }
+        }
+    }
+
+    if (chessman == 0) {
         
     }
 }
 
-
+document.onmouseup = function (e) {
+    e = event || windows.event;
+    document.getElementById("chessboard").removeEventListener("mousemove", move);
+}
 
