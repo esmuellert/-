@@ -103,11 +103,11 @@ function renderChessboard(layout) {
 }
 function renderBigSquare(chess, i, j, tempLayout) {    // Render the chesses
     chess.style.position = "absolute";
-    chess.style.display = "inline";
     chess.style.width = 2 * unit + "px";
     chess.style.height = 2 * unit + "px";
     chess.style.left = j * unit + "px";
     chess.style.top = i * unit + "px";
+    chess.style.display = "inline";
     tempLayout[i + 1][j] = -1;
     tempLayout[i + 1][j + 1] = -1;
     tempLayout[i][j + 1] = -1;
@@ -115,31 +115,31 @@ function renderBigSquare(chess, i, j, tempLayout) {    // Render the chesses
 
 function renderVertical(chess, i, j, tempLayout) {
     chess.style.position = "absolute";
-    chess.style.display = "inline";
     chess.style.height = 2 * unit + "px";
     chess.style.width = unit + "px";
     chess.style.left = j * unit + "px";
     chess.style.top = i * unit + "px";
+    chess.style.display = "inline";
     tempLayout[i + 1][j] = -1;
 }
 
 function renderHorizontal(chess, i, j, tempLayout) {
     chess.style.position = "absolute";
-    chess.style.display = "inline";
     chess.style.width = 2 * unit + "px";
     chess.style.height = unit + "px";
     chess.style.left = j * unit + "px";
     chess.style.top = i * unit + "px";
+    chess.style.display = "inline";
     tempLayout[i][j + 1] = -1;
 }
 
 function renderSquare(chess, i, j, tempLayout) {
     chess.style.position = "absolute";
-    chess.style.display = "inline";
     chess.style.width = unit + "px";
     chess.style.height = unit + "px";
     chess.style.left = j * unit + "px";
     chess.style.top = i * unit + "px";
+    chess.style.display = "inline";
 }
 
 var chessman = 0;
