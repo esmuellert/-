@@ -144,7 +144,7 @@ function renderSquare(chess, i, j, tempLayout) {
 
 var chessman = 0;
 var targ;
-document.onmousedown = function (e) {
+document.ondragstart = function (e) {
     if (!e) var e = window.event
     if (e.target) targ = e.target
     else if (e.srcElement) targ = e.srcElement
@@ -155,17 +155,24 @@ document.onmousedown = function (e) {
     if (tname == "") tname = "blank";
     chessman = inverseIndex[tname];
     //alert("You clicked on a " + tname + " element.");
-    if (tname != "blank" && chessman != -1) {
-        document.getElementById("chessboard").addEventListener("mousemove", move);
+    if (tname != "blank") {
+        document.getElementById(tname).addEventListener("drag", dragging);
     }
 }
+
+
+function dragging (e){
+    e = event || windows.event;
+    document.getElementById("chessboard").addEventListener("mousemove", move);
+} 
+
 
 function move(e) {
     e = event || windows.event;
     var currentarg = e.target;
     var targid = currentarg.id;
-    var mouseX = Math.floor(e.offsetX / unit);
-    var mouseY = Math.floor(e.offsetY / unit);
+    var mouseX = Math.floor((e.clientX - origin[0]) / unit);
+    var mouseY = Math.floor((e.clientY - origin[1]) / unit);
     if (targid == "chessboard" && mouseX >= 0 && mouseX < 4 && mouseY >=0 && mouseY <5) {
         var i = chessmanPos[chessman][0];
         var j = chessmanPos[chessman][1];
@@ -329,10 +336,20 @@ function move(e) {
                 targ = document.getElementById(index[chessman]);
             }
         }
+        document.getElementById("chessboard").removeEventListener("mousemove", move);
     }
 }
-document.onmouseup = function (e) {
+// document.ondragover = function (e) {
+//     e = event || windows.event;
+//     document.getElementById("chessboard").removeEventListener("mousemove", move);
+// }
+
+document.ondragenter = function(e) {
     e = event || windows.event;
-    document.getElementById("chessboard").removeEventListener("mousemove", move);
+    event.preventDefault();
 }
 
+document.ondragover = function(e) {
+    e = event || windows.event;
+    event.preventDefault();
+}
