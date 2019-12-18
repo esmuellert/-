@@ -10,17 +10,40 @@
 
 <body>
     <div id="chessboard">
-        <img draggable="true" id="caocao" src="images/caocao.jpg" class="hide">
-        <img draggable="true" id="zhangfei" src="images/zhangfei.png" class="hide">
-        <img draggable="true" id="machao" src="images/machao.jpg" class="hide">
-        <img draggable="true" id="huangzhong" src="images/huangzhong.jpg" class="hide">
-        <img draggable="true" id="zhaoyun" src="images/zhaoyun.jpg" class="hide">
-        <img draggable="true" id="guanyu" src="images/guanyu.jpg" class="hide">
-        <img draggable="true" id="zu1" src="images/zu.jpg" class="hide">
-        <img draggable="true" id="zu2" src="images/zu.jpg" class="hide">
-        <img draggable="true" id="zu3" src="images/zu.jpg" class="hide">
-        <img draggable="true" id="zu4" src="images/zu.jpg" class="hide">
+        <img draggable="true" id="caocao" src="images/blank.jpg" class="hide">
+        <img draggable="true" id="zhangfei" src="images/blank.jpg" class="hide">
+        <img draggable="true" id="machao" src="images/blank.jpg" class="hide">
+        <img draggable="true" id="huangzhong" src="images/blank.jpg" class="hide">
+        <img draggable="true" id="zhaoyun" src="images/blank.jpg" class="hide">
+        <img draggable="true" id="guanyu" src="images/blank.jpg" class="hide">
+        <img draggable="true" id="zu1" src="images/blank.jpg" class="hide">
+        <img draggable="true" id="zu2" src="images/blank.jpg" class="hide">
+        <img draggable="true" id="zu3" src="images/blank.jpg" class="hide">
+        <img draggable="true" id="zu4" src="images/blank.jpg" class="hide">
     </div>
+
+    <div id="selectArea">
+        <p id="hrd" style="font-family:verdana;" class="hide">HuaRongDao</p>
+        
+        <div id="inputCaocao" class="image-upload">
+            <label  for="file-input" >
+                <img id="selectCaocao" src="images/blue.jpg" class="hide"/>
+            </label>
+            <input id="file-input" type="file" onchange="renderCaocao(this)" />
+       </div>
+        
+           <img id="selectZu" src="images/blue.jpg" class="hide">
+        <img id="selectVertical" src="images/blue.jpg" class="hide">
+        <img id="selectHorizon" src="images/blue.jpg" class="hide">
+        <img id="zuLeft" src="images/blue.jpg" class="hide">
+        <img id="zuRight" src="images/blue.jpg"iv class="hide">
+        <img id="verticalUp" src="images/blue.jpg" class="hide">
+        <img id="verticalDown" src="images/blue.jpg" class="hide">
+        <img id="horizonLeft" src="images/blue.jpg" class="hide">
+        <img id="horizonRight" src="images/blue.jpg" class="hide">
+
+    </div>
+
 </body>
 
 </html>

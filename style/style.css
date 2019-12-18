@@ -2,9 +2,7 @@
     display: none;
 }
 
-#chessboard {
-    border-style: solid;
-    border-width: 2px;
-    cursor:pointer;
+.image-upload > input
+{
+    display: none;
 }
-

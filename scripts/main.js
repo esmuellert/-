@@ -47,9 +47,11 @@ window.onload = function () {
 
 window.onresize = function () {
     this.renderInterface();
+    this.renderChessboard(this.layout);
 }
 
 function renderInterface() {
+    // chessboard.style.display = "none";
     // Get the height and width of screen
     var screenWidth = window.innerWidth;
     var screenHeight = window.innerHeight;
@@ -57,13 +59,71 @@ function renderInterface() {
 
     // Adjust the positon of the chessboard
     var chessboard = document.getElementById("chessboard");
+    chessboard.style.borderStyle = "solid";
+    chessboard.style.borderWidth = 2 + "px";
+    chessboard.style.cursor = "pointer";
     chessboard.style.position = "relative";
     chessboard.style.width = 4 * unit + "px";
     chessboard.style.height = 5 * unit + "px";
-    origin[0] = (screenWidth - 4 * unit - 10) / 2;
+    origin[0] = (screenWidth - 4 * unit - 10) / 2 + 3 * unit;
     origin[1] = (screenHeight - 5 * unit) / 2;
     chessboard.style.left = origin[0] + "px";
     chessboard.style.top = origin[1] + "px";
+
+    // chessboard.style.display = "block";
+    var selectArea = document.getElementById("selectArea");
+    selectArea.style.position = "absolute";
+    selectArea.style.width =  6 * unit + "px";
+    selectArea.style.height = 5 * unit + "px";
+    selectArea.style.left = 0.5 * unit + "px";
+    selectArea.style.top = origin[1] + "px";
+
+    var hrd = document.getElementById("hrd");
+    hrd.style.textAlign = "center";
+    hrd.style.display = "block";
+
+    var caocao = document.getElementById("selectCaocao");
+    caocao.style.width = 2 * unit + "px";
+    caocao.style.height = 2 * unit + "px";
+    caocao.style.position = "absolute";
+    caocao.style.top = 1.5 * unit + "px";
+    caocao.style.display = "block";
+    caocao.style.cursor = "pointer";
+
+    var caocao = document.getElementById("file-input");
+    caocao.style.width = 2 * unit + "px";
+    caocao.style.height = 2 * unit + "px";
+    caocao.style.position = "absolute";
+    caocao.style.top = 1.5 * unit + "px";
+
+
+    var zu = document.getElementById("selectZu");
+    zu.style.width = 0.8 * unit + "px";
+    zu.style.height = 0.8 * unit + "px";
+    zu.style.position = "absolute";
+    zu.style.top = 1.5 * unit + "px";
+    zu.style.left = (2 + 1.2) * unit + "px";
+    zu.style.display = "block";
+
+    var guanyu = document.getElementById("selectHorizon");
+    guanyu.style.width = 1.6 * unit + "px";
+    guanyu.style.height = 0.8 * unit + "px";
+    guanyu.style.position = "absolute";
+    guanyu.style.top = (1.5 + 2 - 0.8) * unit + "px";
+    guanyu.style.left = (2 + 0.8) * unit + "px";
+    guanyu.style.display = "block";
+
+    var verti = document.getElementById("selectVertical");
+    verti.style.width = 0.8 * unit + "px";
+    verti.style.height = 1.6 * unit + "px";
+    verti.style.position = "absolute";
+    verti.style.top = (1.5 + (2 - 1.6) / 2) * unit + "px";
+    verti.style.left = (2.8 + 1.6 + 0.8) * unit + "px";
+    verti.style.display = "block";
+
+
+
+
 }
 
 function renderChessboard(layout) {
@@ -173,7 +233,8 @@ function move(e) {
     var targid = currentarg.id;
     var mouseX = Math.floor((e.clientX - origin[0]) / unit);
     var mouseY = Math.floor((e.clientY - origin[1]) / unit);
-    if (targid == "chessboard" && mouseX >= 0 && mouseX < 4 && mouseY >=0 && mouseY <5) {
+    if (targid == "chessboard" && mouseX >= 0 && mouseX < 4 && mouseY >=0 && mouseY <5) 
+    {
         var i = chessmanPos[chessman][0];
         var j = chessmanPos[chessman][1];
         var i10 = chessmanPos[10][0];
@@ -192,15 +253,9 @@ function move(e) {
         }
 
         else if (chessman == 5) {
-            if ((i10 - i == 1 && j10 == j && i11 - i == 1 && j11 - j == 1) || (i11 - i == 1 && j11 == j && i10 - i == 1 && j10 - j == 1)) {
-                layout[i][j] = 10;
-                layout[i][j + 1] = 11;
-                layout[i10][j10] = 5;
-                layout[i11][j11] = 5;
-                renderChessboard(layout);
-                targ = document.getElementById(index[chessman]);
-            }
-            else if ((i - i10 == 1 && j10 == j && i - i11 == 1 && j11 - j == 1) || (i - i11 == 1 && j11 == j && i - i10 == 1 && j10 - j == 1)) {
+            var cond5h1 = (i10 - i == 1 && j10 == j && i11 - i == 1 && j11 - j == 1) || (i11 - i == 1 && j11 == j && i10 - i == 1 && j10 - j == 1);
+            var cond5h2 = (i - i10 == 1 && j10 == j && i - i11 == 1 && j11 - j == 1) || (i - i11 == 1 && j11 == j && i - i10 == 1 && j10 - j == 1);
+            if (cond5h1 || cond5h2) {
                 layout[i][j] = 10;
                 layout[i][j + 1] = 11;
                 layout[i10][j10] = 5;
@@ -219,12 +274,6 @@ function move(e) {
                 renderChessboard(layout);
                 targ = document.getElementById(index[chessman]);
             }
-            // else if (j - j11 == 1 && i == i11) {
-            //     layout[i][j + 1] = 11;
-            //     layout[i11][j11] = chessman;
-            //     renderChessboard(layout);
-            //     targ = document.getElementById(index[chessman]);
-            // }
 
             else if (mouseX - j == 2 && i == mouseY) {
                 if (mouseX == j10 && mouseY == i10) {
@@ -237,21 +286,11 @@ function move(e) {
                 renderChessboard(layout);
                 targ = document.getElementById(index[chessman]);
             }
-            // else if (j11 - j == 2 && i == i11) {
-            //     layout[i][j] = 11;
-            //     layout[i11][j11] = chessman;
-            //     renderChessboard(layout);
-            //     targ = document.getElementById(index[chessman]);
-            // }
         }
 
         else if (chessman > 0 && chessman < 5) {
-            // if (i - i10 == 1 && j == j10) {
-            //     layout[i + 1][j] = 10;
-            //     layout[i10][j10] = chessman;
-            //     renderChessboard(layout);
-            //     targ = document.getElementById(index[chessman]);
-            // }
+            cond1v1 = (i - i10 == 1 && j10 == j && i - i11 == 1 && j11 - j == 1) || (i - i11 == 1 && j11 == j && i - i10 == 1 && j10 - j == 1);
+            cond1v2 = (i == i10 && j - 1 == j10 && i + 1 == i11 && j - 1 == j11) || (i == i11 && j - 1 == j11 && i + 1 == i10 && j - 1 == j10);
             if (i - mouseY == 1 && j == mouseX) {
                 if (mouseX == j10 && mouseY == i10) {
                     layout[i + 1][j] = 10;
@@ -264,12 +303,6 @@ function move(e) {
                 targ = document.getElementById(index[chessman]);
             }
 
-            // else if (i10 - i == 2 && j == j10) {
-            //     layout[i][j] = 10;
-            //     layout[i10][j10] = chessman;
-            //     renderChessboard(layout);
-            //     targ = document.getElementById(index[chessman]);
-            // }
             else if (mouseY - i == 2 && j == mouseX) {
                 if (mouseX == j10 && mouseY == i10) {
                     layout[i][j] = 10;
@@ -281,15 +314,8 @@ function move(e) {
                 renderChessboard(layout);
                 targ = document.getElementById(index[chessman]);
             }
-            else if ((i == i10 && j + 1 == j10 && i + 1 == i11 && j + 1 == j11) || (i == i11 && j + 1 == j11 && i + 1 == i10 && j + 1 == j10)) {
-                layout[i][j] = 10;
-                layout[i + 1][j] = 11;
-                layout[i10][j10] = chessman;
-                layout[i11][j11] = chessman;
-                renderChessboard(layout);
-                targ = document.getElementById(index[chessman]);
-            }
-            else if ((i == i10 && j - 1 == j10 && i + 1 == i11 && j - 1 == j11) || (i == i11 && j - 1 == j11 && i + 1 == i10 && j - 1 == j10)) {
+            
+            else if (cond1v1 || cond1v2) {
                 layout[i][j] = 10;
                 layout[i + 1][j] = 11;
                 layout[i10][j10] = chessman;
@@ -339,17 +365,28 @@ function move(e) {
         document.getElementById("chessboard").removeEventListener("mousemove", move);
     }
 }
-// document.ondragover = function (e) {
-//     e = event || windows.event;
-//     document.getElementById("chessboard").removeEventListener("mousemove", move);
-// }
 
 document.ondragenter = function(e) {
     e = event || windows.event;
-    event.preventDefault();
+    e.preventDefault();
 }
 
 document.ondragover = function(e) {
     e = event || windows.event;
-    event.preventDefault();
+    e.preventDefault();
+}
+
+document.ondragleave = function(e) {
+    e = event || windows.event;
+    document.getElementById("chessboard").addEventListener("mousemove", move);
+}
+
+function renderCaocao(object) {
+    var file = object.files[0];
+    var reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function(e) {
+        var img = document.getElementById("caocao");
+        img.src = e.target.result;
+    }
 }
