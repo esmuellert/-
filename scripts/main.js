@@ -1,3 +1,94 @@
+/*--------------双向Queue类的定义和测试代码----------------*/
+class Queue {
+    constructor() {
+        this.dataStore = [];
+        this.enqueueFront = enqueueFront;
+        this.enqueueBack = enqueueBack;
+        this.dequeueFront = dequeueFront;
+        this.dequeueBack = dequeueBack;
+        this.front = front;
+        this.back = back;
+        this.toString = toString;
+        this.empty = empty;
+    }
+}
+
+//尾部入队，就是在数组的末尾添加一个元素
+function enqueueBack(element){
+this.dataStore.push(element);
+}
+
+//头部入队，就是在数组的头部添加一个元素
+function enqueueFront(element){
+this.dataStore.splice(0,0,element);
+}
+
+//尾部出队，就是删除数组的最后一个元素
+function dequeueBack(){
+return this.dataStore.splice(this.dataStore.length-1, 1);
+}
+
+//出队，就是删除数组的第一个元素
+function dequeueFront(){
+return this.dataStore.shift();
+}
+
+//取出数组的第一个元素
+function front(){
+return this.dataStore[0];
+}
+//取出数组的最后一个元素
+function back(){
+return this.dataStore[this.dataStore.length-1];
+}
+
+function toString(){
+var retStr = "";
+for (var i=0; i<this.dataStore.length; ++i) {
+    retStr += this.dataStore[i] + "&nbsp;"
+}
+return retStr;
+}
+//判断数组是否为空
+function empty(){
+if(this.dataStore.length == 0){
+    return true;
+}else{
+    return false;
+}    
+}
+//返回数组中元素的个数
+function count(){
+return this.dataStore.length;
+}
+
+
+
+
+
+var zuA = new Array();
+for (var i = 1; i < 25; i++) {
+    zuA.push(i.toString() + ".jpg");
+}
+zuA = shuffle(zuA);
+var horizonA = new Array();
+for (var i = 1; i < 22; i++) {
+    horizonA.push(i.toString() + ".jpg");
+}
+horizonA = shuffle(horizonA);
+var verticalA = new Array();
+for (var i = 1; i < 20; i++) {
+    verticalA.push(i.toString() + ".jpg");
+}
+verticalA = shuffle(verticalA);
+var zu = new Queue();
+zu.dataStore = zuA;
+var horizon = new Queue();
+horizon.dataStore = horizonA;
+var vertical = new Queue();
+vertical.dataStore = verticalA;
+
+
 var layout = [
     [1, 0, 0, 2],
     [1, 0, 0, 2],
@@ -41,13 +132,13 @@ var inverseIndex = {
 var chessmanPos = new Array();
 
 window.onload = function () {
-    this.renderInterface();
-    this.renderChessboard(this.layout);
+    renderInterface();
+    renderChessboard(layout);
 }
 
 window.onresize = function () {
-    this.renderInterface();
-    this.renderChessboard(this.layout);
+    renderInterface();
+    renderChessboard(layout);
 }
 
 function renderInterface() {
@@ -121,8 +212,59 @@ function renderInterface() {
     verti.style.left = (2.8 + 1.6 + 0.8) * unit + "px";
     verti.style.display = "block";
 
+    var zuLeft = document.getElementById("zuLeft");
+    zuLeft.style.width = 0.6 * unit + "px";
+    zuLeft.style.height = 0.6 * unit + "px";
+    zuLeft.style.position = "absolute";
+    zuLeft.style.top = (1.5 + 0.1) * unit + "px";
+    zuLeft.style.left = (2 + 0.4) * unit + "px";
+    zuLeft.style.display = "block";
+    zuLeft.style.cursor = "pointer";
 
+    var zuRight = document.getElementById("zuRight");
+    zuRight.style.width = 0.6 * unit + "px";
+    zuRight.style.height = 0.6 * unit + "px";
+    zuRight.style.position = "absolute";
+    zuRight.style.top = (1.5 + 0.1) * unit + "px";
+    zuRight.style.left = (2 + 0.4 + 0.6 + 0.2 + 0.8 + 0.2) * unit + "px";
+    zuRight.style.display = "block";
+    zuRight.style.cursor = "pointer";
 
+    var horizonLeft = document.getElementById("horizonLeft");
+    horizonLeft.style.width = 0.6 * unit + "px";
+    horizonLeft.style.height = 0.6 * unit + "px";
+    horizonLeft.style.position = "absolute";
+    horizonLeft.style.top = (1.5 + 2 - 0.6 - 0.1) * unit + "px";
+    horizonLeft.style.left = (2 + 0.8 - 0.1 - 0.6) * unit + "px";
+    horizonLeft.style.display = "block";
+    horizonLeft.style.cursor = "pointer";
+
+    var horizonRight = document.getElementById("horizonRight");
+    horizonRight.style.width = 0.6 * unit + "px";
+    horizonRight.style.height = 0.6 * unit + "px";
+    horizonRight.style.position = "absolute";
+    horizonRight.style.top = (1.5 + 2 - 0.6 - 0.1) * unit + "px";
+    horizonRight.style.left = (2 + 0.8 + 1.6 + 0.1) * unit + "px";
+    horizonRight.style.display = "block";
+    horizonRight.style.cursor = "pointer";
+
+    var verticalUp = document.getElementById("verticalUp");
+    verticalUp.style.width = 0.6 * unit + "px";
+    verticalUp.style.height = 0.6 * unit + "px";
+    verticalUp.style.position = "absolute";
+    verticalUp.style.top = (1.5 - 0.6) * unit + "px";
+    verticalUp.style.left = (2 + 0.8 + 1.6 + 0.8 + 0.1) * unit + "px";
+    verticalUp.style.display = "block";
+    verticalUp.style.cursor = "pointer";    
+
+    var verticalDown = document.getElementById("verticalDown");
+    verticalDown.style.width = 0.6 * unit + "px";
+    verticalDown.style.height = 0.6 * unit + "px";
+    verticalDown.style.position = "absolute";
+    verticalDown.style.top = (1.5 + 0.2 + 1.6 + 0.2) * unit + "px";
+    verticalDown.style.left = (2 + 0.8 + 1.6 + 0.8 + 0.1) * unit + "px";
+    verticalDown.style.display = "block";
+    verticalDown.style.cursor = "pointer";  
 
 }
 
@@ -389,4 +531,57 @@ function renderCaocao(object) {
         var img = document.getElementById("caocao");
         img.src = e.target.result;
     }
+}
+
+function shuffle(a) {
+    var j, x, i;
+    for (i = a.length - 1; i > 0; i--) {
+        j = Math.floor(Math.random() * (i + 1));
+        x = a[i];
+        a[i] = a[j];
+        a[j] = x;
+    }
+    return a;
+}
+
+function leftClickZu (){
+    var show = zu.dequeueBack();
+    var img = document.getElementById("selectZu");
+    img.src = "images/zu/" + show;
+    zu.enqueueFront(show);
+}
+
+function rightClickZu () {
+    var show = zu.dequeueFront();
+    zu.enqueueBack(show);
+    var img = document.getElementById("selectZu");
+    img.src = "images/zu/" + zu.front();
+}
+
+function upClickVertical () {
+    var show = vertical.dequeueBack();
+    var img = document.getElementById("selectVertical");
+    img.src = "images/vertical/" + show;
+    vertical.enqueueFront(show);
+}
+
+function downClickVertical () {
+    var show = vertical.dequeueFront();
+    vertical.enqueueBack(show);
+    var img = document.getElementById("selectVertical");
+    img.src = "images/vertical/" + vertical.front();
+}
+
+function leftClickHorizon (){
+    var show = horizon.dequeueBack();
+    var img = document.getElementById("selectHorizon");
+    img.src = "images/horizon/" + show;
+    horizon.enqueueFront(show);
+}
+
+function rightClickHorizon () {
+    var show = horizon.dequeueFront();
+    horizon.enqueueBack(show);
+    var img = document.getElementById("selectHorizon");
+    img.src = "images/horizon/" + horizon.front();
 }
