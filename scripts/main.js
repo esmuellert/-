@@ -89,8 +89,11 @@ function renderInterface() {
     chessboard.style.position = "relative";
     chessboard.style.width = 4 * unit + "px";
     chessboard.style.height = 5 * unit + "px";
-    origin[0] = (screenWidth - 4 * unit - 10) / 2 + 3 * unit;
+    origin[0] = (screenWidth - 4 * unit) * 5 / 6;
     origin[1] = (screenHeight - 5 * unit) / 2;
+    if (origin[0] < 7 * unit) {
+        origin[0] = 7 * unit;
+    }
     chessboard.style.left = origin[0] + "px";
     chessboard.style.top = origin[1] + "px";
 
@@ -111,7 +114,7 @@ function renderInterface() {
     caocao.style.height = 2 * unit + "px";
     caocao.style.position = "absolute";
     caocao.style.top = 1.5 * unit + "px";
-    caocao.style.display = "block";
+    caocao.style.display = "inline";
     caocao.style.cursor = "pointer";
 
     var caocao = document.getElementById("file-input");
@@ -127,7 +130,7 @@ function renderInterface() {
     zu.style.position = "absolute";
     zu.style.top = 1.5 * unit + "px";
     zu.style.left = (2 + 1.2) * unit + "px";
-    zu.style.display = "block";
+    zu.style.display = "inline";
     zu.style.cursor = "pointer";
 
     var guanyu = document.getElementById("selectHorizon");
@@ -136,7 +139,7 @@ function renderInterface() {
     guanyu.style.position = "absolute";
     guanyu.style.top = (1.5 + 2 - 0.8) * unit + "px";
     guanyu.style.left = (2 + 0.8) * unit + "px";
-    guanyu.style.display = "block";
+    guanyu.style.display = "inline";
     guanyu.style.cursor = "pointer";
 
     var verti = document.getElementById("selectVertical");
@@ -145,7 +148,7 @@ function renderInterface() {
     verti.style.position = "absolute";
     verti.style.top = (1.5 + (2 - 1.6) / 2) * unit + "px";
     verti.style.left = (2.8 + 1.6 + 0.8) * unit + "px";
-    verti.style.display = "block";
+    verti.style.display = "inline";
     verti.style.cursor = "pointer";
 
     var zuLeft = document.getElementById("zuLeft");
@@ -154,7 +157,7 @@ function renderInterface() {
     zuLeft.style.position = "absolute";
     zuLeft.style.top = (1.5 + 0.1) * unit + "px";
     zuLeft.style.left = (2 + 0.4) * unit + "px";
-    zuLeft.style.display = "block";
+    zuLeft.style.display = "inline";
     zuLeft.style.cursor = "pointer";
 
     var zuRight = document.getElementById("zuRight");
@@ -163,7 +166,7 @@ function renderInterface() {
     zuRight.style.position = "absolute";
     zuRight.style.top = (1.5 + 0.1) * unit + "px";
     zuRight.style.left = (2 + 0.4 + 0.6 + 0.2 + 0.8 + 0.2) * unit + "px";
-    zuRight.style.display = "block";
+    zuRight.style.display = "inline";
     zuRight.style.cursor = "pointer";
 
     var horizonLeft = document.getElementById("horizonLeft");
@@ -172,7 +175,7 @@ function renderInterface() {
     horizonLeft.style.position = "absolute";
     horizonLeft.style.top = (1.5 + 2 - 0.6 - 0.1) * unit + "px";
     horizonLeft.style.left = (2 + 0.8 - 0.1 - 0.6) * unit + "px";
-    horizonLeft.style.display = "block";
+    horizonLeft.style.display = "inline";
     horizonLeft.style.cursor = "pointer";
 
     var horizonRight = document.getElementById("horizonRight");
@@ -181,7 +184,7 @@ function renderInterface() {
     horizonRight.style.position = "absolute";
     horizonRight.style.top = (1.5 + 2 - 0.6 - 0.1) * unit + "px";
     horizonRight.style.left = (2 + 0.8 + 1.6 + 0.1) * unit + "px";
-    horizonRight.style.display = "block";
+    horizonRight.style.display = "inline";
     horizonRight.style.cursor = "pointer";
 
     var verticalUp = document.getElementById("verticalUp");
@@ -190,7 +193,7 @@ function renderInterface() {
     verticalUp.style.position = "absolute";
     verticalUp.style.top = (1.5 - 0.6) * unit + "px";
     verticalUp.style.left = (2 + 0.8 + 1.6 + 0.8 + 0.1) * unit + "px";
-    verticalUp.style.display = "block";
+    verticalUp.style.display = "inline";
     verticalUp.style.cursor = "pointer";
 
     var verticalDown = document.getElementById("verticalDown");
@@ -199,7 +202,7 @@ function renderInterface() {
     verticalDown.style.position = "absolute";
     verticalDown.style.top = (1.5 + 0.2 + 1.6 + 0.2) * unit + "px";
     verticalDown.style.left = (2 + 0.8 + 1.6 + 0.8 + 0.1) * unit + "px";
-    verticalDown.style.display = "block";
+    verticalDown.style.display = "inline";
     verticalDown.style.cursor = "pointer";
 
 }

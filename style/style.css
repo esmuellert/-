@@ -6,3 +6,10 @@
 {
     display: none;
 }
+
+body
+{
+/* 加入一下两行 */
+min-width: 900px;
+min-height: 300px;
+}
