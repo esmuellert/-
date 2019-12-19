@@ -285,7 +285,7 @@ function renderSquare(chess, i, j, tempLayout) {
 
 var chessman = 0;
 var targ;
-document.ondragstart = function (e) {
+document.getElementById("chessboard").ondragstart = function (e) {
     if (!e) var e = window.event
     if (e.target) targ = e.target
     else if (e.srcElement) targ = e.srcElement
@@ -305,6 +305,8 @@ document.ondragstart = function (e) {
 function dragging(e) {
     e = event || windows.event;
     document.getElementById("chessboard").addEventListener("mousemove", move);
+
+
 }
 
 
@@ -442,8 +444,9 @@ function move(e) {
                 targ = document.getElementById(index[chessman]);
             }
         }
-        document.getElementById("chessboard").removeEventListener("mousemove", move);
+
     }
+    document.getElementById("chessboard").removeEventListener("mousemove", move);
 }
 
 document.ondragenter = function (e) {
@@ -456,9 +459,17 @@ document.ondragover = function (e) {
     e.preventDefault();
 }
 
-document.ondragleave = function (e) {
+// document.ondragleave = function (e) {
+//     e = event || windows.event;
+//     document.getElementById("chessboard").removeEventListener("mousemove", move);
+// }
+
+document.ondragend = function (e) {
     e = event || windows.event;
-    document.getElementById("chessboard").addEventListener("mousemove", move);
+    var inChessboard = (e.x > origin[0]) && (e.x < origin[0] + 4 * unit) && (e.y > origin[1]) && (e.y < origin[1] + 5 * unit);
+    if (!inChessboard) {
+        document.getElementById("chessboard").removeEventListener("mousemove", move);
+    }
 }
 
 function renderCaocao(object) {

@@ -12,5 +12,18 @@ body
 /* 加入一下两行 */
 min-width: 900px;
 min-height: 300px;
-font-family:"Caflisch Script","Adobe Poetica",Sanvito,"Ex Ponto","Snell Roundhand",Zapf-Chancery;
+
+}
+.nonselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.hrd{
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    display: none;
 }
