@@ -1,71 +1,3 @@
-/*--------------双向Queue类的定义和测试代码----------------*/
-class Queue {
-    constructor() {
-        this.dataStore = [];
-        this.enqueueFront = enqueueFront;
-        this.enqueueBack = enqueueBack;
-        this.dequeueFront = dequeueFront;
-        this.dequeueBack = dequeueBack;
-        this.front = front;
-        this.back = back;
-        this.toString = toString;
-        this.empty = empty;
-    }
-}
-
-//尾部入队，就是在数组的末尾添加一个元素
-function enqueueBack(element){
-this.dataStore.push(element);
-}
-
-//头部入队，就是在数组的头部添加一个元素
-function enqueueFront(element){
-this.dataStore.splice(0,0,element);
-}
-
-//尾部出队，就是删除数组的最后一个元素
-function dequeueBack(){
-return this.dataStore.splice(this.dataStore.length-1, 1);
-}
-
-//出队，就是删除数组的第一个元素
-function dequeueFront(){
-return this.dataStore.shift();
-}
-
-//取出数组的第一个元素
-function front(){
-return this.dataStore[0];
-}
-//取出数组的最后一个元素
-function back(){
-return this.dataStore[this.dataStore.length-1];
-}
-
-function toString(){
-var retStr = "";
-for (var i=0; i<this.dataStore.length; ++i) {
-    retStr += this.dataStore[i] + "&nbsp;"
-}
-return retStr;
-}
-//判断数组是否为空
-function empty(){
-if(this.dataStore.length == 0){
-    return true;
-}else{
-    return false;
-}    
-}
-//返回数组中元素的个数
-function count(){
-return this.dataStore.length;
-}
-
-
-
-
-
 var zuA = new Array();
 for (var i = 1; i < 25; i++) {
     zuA.push(i.toString() + ".jpg");
@@ -81,12 +13,10 @@ for (var i = 1; i < 20; i++) {
     verticalA.push(i.toString() + ".jpg");
 }
 verticalA = shuffle(verticalA);
-var zu = new Queue();
-zu.dataStore = zuA;
-var horizon = new Queue();
-horizon.dataStore = horizonA;
-var vertical = new Queue();
-vertical.dataStore = verticalA;
+var zu = new Deque(zuA);
+var horizon = new Deque(horizonA);
+var vertical = new Deque(verticalA);
+
 
 
 var layout = [
@@ -113,6 +43,9 @@ var index = {
     10: "chessboard1",
     11: "chessboard2"
 };
+
+var zuIndex = new Deque(["zu1", "zu2", "zu3", "zu4"]);
+var verticalIndex = new Deque(["zhangfei", "machao", "huangzhong", "zhaoyun"]);
 
 var inverseIndex = {
     "caocao": 0,
@@ -164,7 +97,7 @@ function renderInterface() {
     // chessboard.style.display = "block";
     var selectArea = document.getElementById("selectArea");
     selectArea.style.position = "absolute";
-    selectArea.style.width =  6 * unit + "px";
+    selectArea.style.width = 6 * unit + "px";
     selectArea.style.height = 5 * unit + "px";
     selectArea.style.left = 0.5 * unit + "px";
     selectArea.style.top = origin[1] + "px";
@@ -195,6 +128,7 @@ function renderInterface() {
     zu.style.top = 1.5 * unit + "px";
     zu.style.left = (2 + 1.2) * unit + "px";
     zu.style.display = "block";
+    zu.style.cursor = "pointer";
 
     var guanyu = document.getElementById("selectHorizon");
     guanyu.style.width = 1.6 * unit + "px";
@@ -203,6 +137,7 @@ function renderInterface() {
     guanyu.style.top = (1.5 + 2 - 0.8) * unit + "px";
     guanyu.style.left = (2 + 0.8) * unit + "px";
     guanyu.style.display = "block";
+    guanyu.style.cursor = "pointer";
 
     var verti = document.getElementById("selectVertical");
     verti.style.width = 0.8 * unit + "px";
@@ -211,6 +146,7 @@ function renderInterface() {
     verti.style.top = (1.5 + (2 - 1.6) / 2) * unit + "px";
     verti.style.left = (2.8 + 1.6 + 0.8) * unit + "px";
     verti.style.display = "block";
+    verti.style.cursor = "pointer";
 
     var zuLeft = document.getElementById("zuLeft");
     zuLeft.style.width = 0.6 * unit + "px";
@@ -255,7 +191,7 @@ function renderInterface() {
     verticalUp.style.top = (1.5 - 0.6) * unit + "px";
     verticalUp.style.left = (2 + 0.8 + 1.6 + 0.8 + 0.1) * unit + "px";
     verticalUp.style.display = "block";
-    verticalUp.style.cursor = "pointer";    
+    verticalUp.style.cursor = "pointer";
 
     var verticalDown = document.getElementById("verticalDown");
     verticalDown.style.width = 0.6 * unit + "px";
@@ -264,12 +200,12 @@ function renderInterface() {
     verticalDown.style.top = (1.5 + 0.2 + 1.6 + 0.2) * unit + "px";
     verticalDown.style.left = (2 + 0.8 + 1.6 + 0.8 + 0.1) * unit + "px";
     verticalDown.style.display = "block";
-    verticalDown.style.cursor = "pointer";  
+    verticalDown.style.cursor = "pointer";
 
 }
 
 function renderChessboard(layout) {
-    var tempLayout = layout.map(function(arr) {   // Copy the array
+    var tempLayout = layout.map(function (arr) {   // Copy the array
         return arr.slice();
     });
 
@@ -278,7 +214,7 @@ function renderChessboard(layout) {
             var id = tempLayout[i][j];
 
             if (id < 0 || id > 9) {           // The chess is blank or should be skipped
-                if(id > 9) {
+                if (id > 9) {
                     chessmanPos[id] = [i, j];
                 }
                 continue;
@@ -289,17 +225,17 @@ function renderChessboard(layout) {
             if (id == 0) {
                 renderBigSquare(chess, i, j, tempLayout);
                 chessmanPos[id] = [i, j];
-            } else if(id >= 1 && id <= 4) {
+            } else if (id >= 1 && id <= 4) {
                 renderVertical(chess, i, j, tempLayout);
                 chessmanPos[id] = [i, j];
-            } else if(id == 5) {
+            } else if (id == 5) {
                 renderHorizontal(chess, i, j, tempLayout);
                 chessmanPos[id] = [i, j];
             } else {
                 renderSquare(chess, i, j, tempLayout);
                 chessmanPos[id] = [i, j];
             }
-            
+
         }
     }
 }
@@ -351,7 +287,7 @@ document.ondragstart = function (e) {
     if (e.target) targ = e.target
     else if (e.srcElement) targ = e.srcElement
     if (targ.nodeType == 3) // defeat Safari bug
-       targ = targ.parentNode
+        targ = targ.parentNode
     var tname
     tname = targ.id;
     if (tname == "") tname = "blank";
@@ -363,10 +299,10 @@ document.ondragstart = function (e) {
 }
 
 
-function dragging (e){
+function dragging(e) {
     e = event || windows.event;
     document.getElementById("chessboard").addEventListener("mousemove", move);
-} 
+}
 
 
 function move(e) {
@@ -375,8 +311,7 @@ function move(e) {
     var targid = currentarg.id;
     var mouseX = Math.floor((e.clientX - origin[0]) / unit);
     var mouseY = Math.floor((e.clientY - origin[1]) / unit);
-    if (targid == "chessboard" && mouseX >= 0 && mouseX < 4 && mouseY >=0 && mouseY <5) 
-    {
+    if (targid == "chessboard" && mouseX >= 0 && mouseX < 4 && mouseY >= 0 && mouseY < 5) {
         var i = chessmanPos[chessman][0];
         var j = chessmanPos[chessman][1];
         var i10 = chessmanPos[10][0];
@@ -409,7 +344,7 @@ function move(e) {
                 if (mouseX == j10 && mouseY == i10) {
                     layout[i][j + 1] = 10;
                 }
-                else{
+                else {
                     layout[i][j + 1] = 11;
                 }
                 layout[mouseY][mouseX] = chessman;
@@ -421,7 +356,7 @@ function move(e) {
                 if (mouseX == j10 && mouseY == i10) {
                     layout[i][j] = 10;
                 }
-                else{
+                else {
                     layout[i][j] = 11;
                 }
                 layout[mouseY][mouseX] = chessman;
@@ -437,7 +372,7 @@ function move(e) {
                 if (mouseX == j10 && mouseY == i10) {
                     layout[i + 1][j] = 10;
                 }
-                else{
+                else {
                     layout[i + 1][j] = 11;
                 }
                 layout[mouseY][mouseX] = chessman;
@@ -449,14 +384,14 @@ function move(e) {
                 if (mouseX == j10 && mouseY == i10) {
                     layout[i][j] = 10;
                 }
-                else{
+                else {
                     layout[i][j] = 11;
                 }
                 layout[mouseY][mouseX] = chessman;
                 renderChessboard(layout);
                 targ = document.getElementById(index[chessman]);
             }
-            
+
             else if (cond1v1 || cond1v2) {
                 layout[i][j] = 10;
                 layout[i + 1][j] = 11;
@@ -481,7 +416,7 @@ function move(e) {
                 layout[i10][j10] = chessman;
                 layout[i11][j11] = chessman;
                 layout[i][j + 1] = 10;
-                layout[i + 1][j + 1] = 11; 
+                layout[i + 1][j + 1] = 11;
                 renderChessboard(layout);
                 targ = document.getElementById(index[chessman]);
             }
@@ -495,7 +430,7 @@ function move(e) {
                 targ = document.getElementById(index[chessman]);
             }
 
-            else if((i10 - i == 2 && j10 == j && i11 - i == 2 && j11 - j == 1) || (i11 - i == 2 && j11 == j && i10 - i == 2 && j10 - j == 1)) {
+            else if ((i10 - i == 2 && j10 == j && i11 - i == 2 && j11 - j == 1) || (i11 - i == 2 && j11 == j && i10 - i == 2 && j10 - j == 1)) {
                 layout[i10][j10] = chessman;
                 layout[i11][j11] = chessman;
                 layout[i][j] = 10;
@@ -508,29 +443,33 @@ function move(e) {
     }
 }
 
-document.ondragenter = function(e) {
+document.ondragenter = function (e) {
     e = event || windows.event;
     e.preventDefault();
 }
 
-document.ondragover = function(e) {
+document.ondragover = function (e) {
     e = event || windows.event;
     e.preventDefault();
 }
 
-document.ondragleave = function(e) {
+document.ondragleave = function (e) {
     e = event || windows.event;
     document.getElementById("chessboard").addEventListener("mousemove", move);
 }
 
 function renderCaocao(object) {
     var file = object.files[0];
-    var reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = function(e) {
-        var img = document.getElementById("caocao");
-        img.src = e.target.result;
-    }
+    // var reader = new FileReader();
+    // reader.readAsDataURL(file);
+    // reader.onload = function(e) {
+    //     var img = document.getElementById("caocao");
+    //     var caocao = document.getElementById("selectCaocao");
+    //     img.src = e.target.result;
+    //     caocao.src = e.target.result;
+    // }
+    saveImg(file, document.getElementById("caocao"));
+    saveImg(file, document.getElementById("selectCaocao"));
 }
 
 function shuffle(a) {
@@ -544,44 +483,64 @@ function shuffle(a) {
     return a;
 }
 
-function leftClickZu (){
-    var show = zu.dequeueBack();
+function leftClickZu() {
+    var show = zu.pop();
     var img = document.getElementById("selectZu");
     img.src = "images/zu/" + show;
-    zu.enqueueFront(show);
+    zu.unshift(show);
 }
 
-function rightClickZu () {
-    var show = zu.dequeueFront();
-    zu.enqueueBack(show);
+function rightClickZu() {
+    var show = zu.shift();
+    zu.push(show);
     var img = document.getElementById("selectZu");
-    img.src = "images/zu/" + zu.front();
+    img.src = "images/zu/" + zu.peekFront();
 }
 
-function upClickVertical () {
-    var show = vertical.dequeueBack();
+function upClickVertical() {
+    var show = vertical.pop();
     var img = document.getElementById("selectVertical");
     img.src = "images/vertical/" + show;
-    vertical.enqueueFront(show);
+    vertical.unshift(show);
 }
 
-function downClickVertical () {
-    var show = vertical.dequeueFront();
-    vertical.enqueueBack(show);
+function downClickVertical() {
+    var show = vertical.shift();
+    vertical.push(show);
     var img = document.getElementById("selectVertical");
-    img.src = "images/vertical/" + vertical.front();
+    img.src = "images/vertical/" + vertical.peekFront();
 }
 
-function leftClickHorizon (){
-    var show = horizon.dequeueBack();
+function leftClickHorizon() {
+    var show = horizon.pop();
     var img = document.getElementById("selectHorizon");
     img.src = "images/horizon/" + show;
-    horizon.enqueueFront(show);
+    horizon.unshift(show);
 }
 
-function rightClickHorizon () {
-    var show = horizon.dequeueFront();
-    horizon.enqueueBack(show);
+function rightClickHorizon() {
+    var show = horizon.shift();
+    horizon.push(show);
     var img = document.getElementById("selectHorizon");
-    img.src = "images/horizon/" + horizon.front();
+    img.src = "images/horizon/" + horizon.peekFront();
+}
+
+function clickHorizon() {
+    var guanyu = document.getElementById("guanyu");
+    var horizon = document.getElementById("selectHorizon");
+    guanyu.src = horizon.src;
+}
+
+function clickZu() {
+    var zu = document.getElementById(zuIndex.peekFront());
+    var select = document.getElementById("selectZu");
+    zu.src = select.src;
+    zuIndex.push(zuIndex.shift());
+}
+
+function clickVertical() {
+    var vertical = document.getElementById(verticalIndex.peekFront());
+    var select = document.getElementById("selectVertical");
+    vertical.src = select.src;
+    verticalIndex.push(verticalIndex.shift());
 }

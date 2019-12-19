@@ -4,6 +4,9 @@
 <head>
     <title>Huarongdao</title>
     <link rel="stylesheet" href="style/style.css">
+    <script src="http://cdn.muops.cn/js/exif.js"></script>
+    <script src="scripts/orientation.js"></script>
+    <script src="scripts/deque.js"></script>
     <script src="scripts/main.js"></script>
     <meta http-equiv="expires" content="0">
     <meta http-equiv="pragma" content="no-cache">
@@ -25,18 +28,18 @@
     </div>
 
     <div id="selectArea">
-        <p id="hrd" style="font-family:verdana;" class="hide">HuaRongDao</p>
-        
+        <p id="hrd" style="font-family:Snell Roundhand, cursive; font-size: 150%;" class="hide">HuaRongDao</p>
+
         <div id="inputCaocao" class="image-upload">
-            <label  for="file-input" >
-                <img id="selectCaocao" src="images/blue.jpg" class="hide"/>
+            <label for="file-input">
+                <img id="selectCaocao" src="images/blue.jpg" class="hide" />
             </label>
             <input id="file-input" type="file" onchange="renderCaocao(this)" />
-       </div>
-        
-           <img id="selectZu" src="images/blue.jpg" class="hide">
-        <img id="selectVertical" src="images/blue.jpg" class="hide">
-        <img id="selectHorizon" src="images/blue.jpg" class="hide">
+        </div>
+
+        <img id="selectZu" src="images/blue.jpg" onclick="clickZu()" class="hide">
+        <img id="selectVertical" src="images/blue.jpg" onclick="clickVertical()" class="hide">
+        <img id="selectHorizon" src="images/blue.jpg" onclick="clickHorizon()" class="hide">
         <img id="zuLeft" src="images/blue.jpg" onclick="leftClickZu()" class="hide">
         <img id="zuRight" src="images/blue.jpg" onclick="rightClickZu()" class="hide">
         <img id="verticalUp" src="images/blue.jpg" onclick="upClickVertical()" class="hide">
