@@ -546,15 +546,15 @@ function clickHorizon() {
 }
 
 function clickZu() {
-    var zu = document.getElementById(zuIndex.peekFront());
+    var zuImg = document.getElementById(zuIndex.peekFront());
     var select = document.getElementById("selectZu");
-    zu.src = select.src;
+    zuImg.src = select.src;
     zuIndex.push(zuIndex.shift());
 }
 
 function clickVertical() {
-    var vertical = document.getElementById(verticalIndex.peekFront());
+    var verticalImg = document.getElementById(verticalIndex.peekFront());
     var select = document.getElementById("selectVertical");
-    vertical.src = select.src;
+    verticalImg.src = select.src;
     verticalIndex.push(verticalIndex.shift());
 }
