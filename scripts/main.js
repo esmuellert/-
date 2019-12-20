@@ -371,7 +371,7 @@ function move(e) {
         }
 
         else if (chessman > 0 && chessman < 5) {
-            cond1v1 = (i - i10 == 1 && j10 == j && i - i11 == 1 && j11 - j == 1) || (i - i11 == 1 && j11 == j && i - i10 == 1 && j10 - j == 1);
+            cond1v1 = (i == i10 && j + 1 == j10 && i + 1 == i11 && j + 1 == j11) || (i == i11 && j + 1 == j11 && i + 1 == i10 && j + 1 == j10);
             cond1v2 = (i == i10 && j - 1 == j10 && i + 1 == i11 && j - 1 == j11) || (i == i11 && j - 1 == j11 && i + 1 == i10 && j - 1 == j10);
             if (i - mouseY == 1 && j == mouseX) {
                 if (mouseX == j10 && mouseY == i10) {
@@ -444,9 +444,9 @@ function move(e) {
                 targ = document.getElementById(index[chessman]);
             }
         }
+        document.getElementById("chessboard").removeEventListener("mousemove", move);
 
     }
-    document.getElementById("chessboard").removeEventListener("mousemove", move);
 }
 
 document.ondragenter = function (e) {
