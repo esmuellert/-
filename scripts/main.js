@@ -79,12 +79,12 @@ function renderInterface() {
     // Get the height and width of screen
     var screenWidth = window.innerWidth;
     var screenHeight = window.innerHeight;
-    unit = Math.floor(screenHeight / 6);
+    unit = Math.floor(screenHeight / 7);
 
     // Adjust the positon of the chessboard
     var chessboard = document.getElementById("chessboard");
-    chessboard.style.borderStyle = "solid";
-    chessboard.style.borderWidth = 2 + "px";
+    // chessboard.style.borderStyle = "solid";
+    // chessboard.style.borderWidth = 2 + "px";
     chessboard.style.cursor = "pointer";
     chessboard.style.position = "relative";
     chessboard.style.width = 4 * unit + "px";
@@ -97,6 +97,14 @@ function renderInterface() {
     chessboard.style.left = origin[0] + "px";
     chessboard.style.top = origin[1] + "px";
 
+    var background = document.getElementById("chessBackground");
+    background.style.width = 8 * unit + "px";
+    background.style.height = 7 * unit + "px";
+    background.style.display = "inline";
+    background.style.position = "absolute";
+    background.style.left = - 2 * unit + "px";
+    background.style.top = - 0.656 * unit + "px";
+    
     // chessboard.style.display = "block";
     var selectArea = document.getElementById("selectArea");
     var selectAreaHeight = 5;
