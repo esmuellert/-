@@ -286,29 +286,21 @@ function renderSquare(chess, i, j, tempLayout) {
 var chessman = 0;
 var targ;
 document.getElementById("chessboard").ondragstart = function (e) {
-    if (!e) var e = window.event
+    e = event || windows.event;
     if (e.target) targ = e.target
     else if (e.srcElement) targ = e.srcElement
+
     if (targ.nodeType == 3) // defeat Safari bug
         targ = targ.parentNode
     var tname
     tname = targ.id;
     if (tname == "") tname = "blank";
     chessman = inverseIndex[tname];
-    //alert("You clicked on a " + tname + " element.");
+
     if (tname != "blank") {
-        document.getElementById("chessboard").addEventListener("mousemove", move);
+        document.addEventListener("mousemove", move);
     }
 }
-
-
-// function dragging(e) {
-//     e = event || windows.event;
-//     document.getElementById("chessboard").addEventListener("mousemove", move);
-
-
-// }
-
 
 function move(e) {
     e = event || windows.event;
@@ -444,11 +436,8 @@ function move(e) {
                 targ = document.getElementById(index[chessman]);
             }
         }
-        document.getElementById("chessboard").removeEventListener("mousemove", move);
     }
-    else {
-        document.getElementById("chessoboard").removeEventListener("mousemove", move);
-    }
+    document.removeEventListener("mousemove", move);
 }
 
 document.getElementById("chessboard").ondragenter = function (e) {
@@ -462,24 +451,8 @@ document.getElementById("chessboard").ondragover = function (e) {
 }
 
 
-// document.getElementById("chessboard").onmouseup = function (e) {
-//     e = event || windows.event;
-//     var inChessboard = (e.clientX > origin[0]) && (e.clientX < origin[0] + 4 * unit);
-//     if (!inChessboard) {
-//         document.getElementById("chessboard").removeEventListener("mousemove", move);
-//     }
-// }
-
 function renderCaocao(object) {
     var file = object.files[0];
-    // var reader = new FileReader();
-    // reader.readAsDataURL(file);
-    // reader.onload = function(e) {
-    //     var img = document.getElementById("caocao");
-    //     var caocao = document.getElementById("selectCaocao");
-    //     img.src = e.target.result;
-    //     caocao.src = e.target.result;
-    // }
     saveImg(file, document.getElementById("caocao"));
     saveImg(file, document.getElementById("selectCaocao"));
 }
