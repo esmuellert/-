@@ -99,29 +99,35 @@ function renderInterface() {
 
     // chessboard.style.display = "block";
     var selectArea = document.getElementById("selectArea");
+    var selectAreaHeight = 5;
+    var selectAreaWidth = 6;
     selectArea.style.position = "absolute";
-    selectArea.style.width = 6 * unit + "px";
-    selectArea.style.height = 5 * unit + "px";
-    selectArea.style.left = 0.5 * unit + "px";
+    selectArea.style.width = selectAreaWidth * unit + "px";
+    selectArea.style.height = selectAreaHeight * unit + "px";
+    selectArea.style.left = (origin[0] - selectAreaWidth * unit) / 2 + "px";
     selectArea.style.top = origin[1] + "px";
 
     var hrd = document.getElementById("hrd");
     hrd.style.textAlign = "center";
     hrd.style.display = "block";
+    hrd.style.margin = 0 + "px";
+    hrd.style.fontSize = unit / 4 + "px";
 
-    var caocao = document.getElementById("selectCaocao");
-    caocao.style.width = 2 * unit + "px";
-    caocao.style.height = 2 * unit + "px";
-    caocao.style.position = "absolute";
-    caocao.style.top = 1.5 * unit + "px";
-    caocao.style.display = "inline";
-    caocao.style.cursor = "pointer";
+    var inputCaocao = document.getElementById("inputCaocao");
+    inputCaocao.style.width = 2 * unit + "px";
+    inputCaocao.style.height = 2 * unit + "px";
+    inputCaocao.style.position = "absolute";
+    inputCaocao.style.top = 1.5 * unit + "px";
 
-    var caocao = document.getElementById("file-input");
-    caocao.style.width = 2 * unit + "px";
-    caocao.style.height = 2 * unit + "px";
-    caocao.style.position = "absolute";
-    caocao.style.top = 1.5 * unit + "px";
+    var selectCaocao = document.getElementById("selectCaocao");
+    selectCaocao.style.width = 2 * unit + "px";
+    selectCaocao.style.height = 2 * unit + "px";
+    selectCaocao.style.display = "inline";
+    selectCaocao.style.cursor = "pointer";
+
+    var fileInput = document.getElementById("file-input");
+    fileInput.style.width = 2 * unit + "px";
+    fileInput.style.height = 2 * unit + "px";
 
 
     var zu = document.getElementById("selectZu");
