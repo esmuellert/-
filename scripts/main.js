@@ -418,7 +418,7 @@ function move(e) {
                 targ = document.getElementById(index[chessman]);
             }
 
-            else if ((j10 - j == 2 && i10 == i && j11 - j == 2 && i11 - i == 1) || (j10 - j == 2 && i10 == i && j11 - j == 2 && i11 - i == 1)) {
+            else if ((j10 - j == 2 && i10 == i && j11 - j == 2 && i11 - i == 1) || (j11 - j == 2 && i11 == i && j10 - j == 2 && i10 - i == 1)) {
                 layout[i10][j10] = chessman;
                 layout[i11][j11] = chessman;
                 layout[i][j] = 10;
