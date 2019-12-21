@@ -102,8 +102,8 @@ function renderInterface() {
     background.style.height = 7 * unit + "px";
     background.style.display = "inline";
     background.style.position = "absolute";
-    background.style.left = - 2 * unit + "px";
-    background.style.top = - 0.656 * unit + "px";
+    background.style.left = - 1.93 * unit + origin[0] + "px";
+    background.style.top = - 0.7 * unit + origin[1] + "px";
     
     // chessboard.style.display = "block";
     var selectArea = document.getElementById("selectArea");
@@ -230,10 +230,10 @@ function renderChessboard(layout) {
         for (var j = 0; j < tempLayout[0].length; j++) {
             var id = tempLayout[i][j];
 
-            if (id < 0 || id > 9) {           // The chess is blank or should be skipped
-                if (id > 9) {
-                    chessmanPos[id] = [i, j];
-                }
+            if (id < 0) {           // The chess is blank or should be skipped
+                // if (id > 9) {
+                //     chessmanPos[id] = [i, j];
+                // }
                 continue;
             }
 
@@ -322,7 +322,7 @@ function move(e) {
     var targid = currentarg.id;
     var mouseX = Math.floor((e.clientX - origin[0]) / unit);
     var mouseY = Math.floor((e.clientY - origin[1]) / unit);
-    if (targid == "chessboard") {
+    if (targid == "chessboard1" || targid == "chessboard2") {
         var i = chessmanPos[chessman][0];
         var j = chessmanPos[chessman][1];
         var i10 = chessmanPos[10][0];
