@@ -1,24 +1,3 @@
-var zuA = new Array();
-for (var i = 1; i < 25; i++) {
-    zuA.push(i.toString() + ".jpg");
-}
-zuA = shuffle(zuA);
-var horizonA = new Array();
-for (var i = 1; i < 22; i++) {
-    horizonA.push(i.toString() + ".jpg");
-}
-horizonA = shuffle(horizonA);
-var verticalA = new Array();
-for (var i = 1; i < 20; i++) {
-    verticalA.push(i.toString() + ".jpg");
-}
-verticalA = shuffle(verticalA);
-var zu = new Deque(zuA);
-var horizon = new Deque(horizonA);
-var vertical = new Deque(verticalA);
-
-
-
 var layout = [
     [1, 0, 0, 2],
     [1, 0, 0, 2],
@@ -44,8 +23,6 @@ var index = {
     11: "chessboard2"
 };
 
-var zuIndex = new Deque(["zu1", "zu2", "zu3", "zu4"]);
-var verticalIndex = new Deque(["zhangfei", "machao", "huangzhong", "zhaoyun"]);
 
 var inverseIndex = {
     "caocao": 0,
@@ -102,9 +79,9 @@ function renderInterface() {
     background.style.height = 7 * unit + "px";
     background.style.display = "inline";
     background.style.position = "absolute";
-    background.style.left = - 1.93 * unit + origin[0] + "px";
-    background.style.top = - 0.7 * unit + origin[1] + "px";
-    
+    background.style.left = -1.93 * unit + origin[0] + "px";
+    background.style.top = -0.7 * unit + origin[1] + "px";
+
     // chessboard.style.display = "block";
     var selectArea = document.getElementById("selectArea");
     var selectAreaHeight = 5;
@@ -120,23 +97,26 @@ function renderInterface() {
     hrd.style.display = "block";
     hrd.style.margin = 0 + "px";
     hrd.style.fontSize = unit / 4 + "px";
+    hrd.draggable = false
 
     var inputCaocao = document.getElementById("inputCaocao");
     inputCaocao.style.width = 2 * unit + "px";
     inputCaocao.style.height = 2 * unit + "px";
     inputCaocao.style.position = "absolute";
     inputCaocao.style.top = 1.5 * unit + "px";
+    inputCaocao.draggable = false
 
     var selectCaocao = document.getElementById("selectCaocao");
     selectCaocao.style.width = 2 * unit + "px";
     selectCaocao.style.height = 2 * unit + "px";
     selectCaocao.style.display = "inline";
     selectCaocao.style.cursor = "pointer";
+    selectCaocao.draggable = false
 
     var fileInput = document.getElementById("file-input");
     fileInput.style.width = 2 * unit + "px";
     fileInput.style.height = 2 * unit + "px";
-
+    fileInput.draggable = false
 
     var zu = document.getElementById("selectZu");
     zu.style.width = 0.8 * unit + "px";
@@ -146,6 +126,7 @@ function renderInterface() {
     zu.style.left = (2 + 1.2) * unit + "px";
     zu.style.display = "inline";
     zu.style.cursor = "pointer";
+    zu.draggable = false
 
     var guanyu = document.getElementById("selectHorizon");
     guanyu.style.width = 1.6 * unit + "px";
@@ -155,6 +136,7 @@ function renderInterface() {
     guanyu.style.left = (2 + 0.8) * unit + "px";
     guanyu.style.display = "inline";
     guanyu.style.cursor = "pointer";
+    guanyu.draggable = false
 
     var verti = document.getElementById("selectVertical");
     verti.style.width = 0.8 * unit + "px";
@@ -164,88 +146,89 @@ function renderInterface() {
     verti.style.left = (2.8 + 1.6 + 0.8) * unit + "px";
     verti.style.display = "inline";
     verti.style.cursor = "pointer";
+    verti.draggable = false
 
-    var zuLeft = document.getElementById("zuLeft");
-    zuLeft.style.width = 0.6 * unit + "px";
-    zuLeft.style.height = 0.6 * unit + "px";
-    zuLeft.style.position = "absolute";
-    zuLeft.style.top = (1.5 + 0.1) * unit + "px";
-    zuLeft.style.left = (2 + 0.4) * unit + "px";
-    zuLeft.style.display = "inline";
-    zuLeft.style.cursor = "pointer";
+    var zuPrev = document.getElementById("zuPrev");
+    zuPrev.style.width = 0.6 * unit + "px";
+    zuPrev.style.height = 0.6 * unit + "px";
+    zuPrev.style.position = "absolute";
+    zuPrev.style.top = (1.5 + 0.1) * unit + "px";
+    zuPrev.style.left = (2 + 0.4) * unit + "px";
+    zuPrev.style.display = "inline";
+    zuPrev.style.cursor = "pointer";
+    zuPrev.draggable = false
 
-    var zuRight = document.getElementById("zuRight");
-    zuRight.style.width = 0.6 * unit + "px";
-    zuRight.style.height = 0.6 * unit + "px";
-    zuRight.style.position = "absolute";
-    zuRight.style.top = (1.5 + 0.1) * unit + "px";
-    zuRight.style.left = (2 + 0.4 + 0.6 + 0.2 + 0.8 + 0.2) * unit + "px";
-    zuRight.style.display = "inline";
-    zuRight.style.cursor = "pointer";
+    var zuNext = document.getElementById("zuNext");
+    zuNext.style.width = 0.6 * unit + "px";
+    zuNext.style.height = 0.6 * unit + "px";
+    zuNext.style.position = "absolute";
+    zuNext.style.top = (1.5 + 0.1) * unit + "px";
+    zuNext.style.left = (2 + 0.4 + 0.6 + 0.2 + 0.8 + 0.2) * unit + "px";
+    zuNext.style.display = "inline";
+    zuNext.style.cursor = "pointer";
+    zuNext.draggable = false
 
-    var horizonLeft = document.getElementById("horizonLeft");
-    horizonLeft.style.width = 0.6 * unit + "px";
-    horizonLeft.style.height = 0.6 * unit + "px";
-    horizonLeft.style.position = "absolute";
-    horizonLeft.style.top = (1.5 + 2 - 0.6 - 0.1) * unit + "px";
-    horizonLeft.style.left = (2 + 0.8 - 0.1 - 0.6) * unit + "px";
-    horizonLeft.style.display = "inline";
-    horizonLeft.style.cursor = "pointer";
+    var horizonPrev = document.getElementById("horizonPrev");
+    horizonPrev.style.width = 0.6 * unit + "px";
+    horizonPrev.style.height = 0.6 * unit + "px";
+    horizonPrev.style.position = "absolute";
+    horizonPrev.style.top = (1.5 + 2 - 0.6 - 0.1) * unit + "px";
+    horizonPrev.style.left = (2 + 0.8 - 0.1 - 0.6) * unit + "px";
+    horizonPrev.style.display = "inline";
+    horizonPrev.style.cursor = "pointer";
+    horizonPrev.draggable = false
 
-    var horizonRight = document.getElementById("horizonRight");
-    horizonRight.style.width = 0.6 * unit + "px";
-    horizonRight.style.height = 0.6 * unit + "px";
-    horizonRight.style.position = "absolute";
-    horizonRight.style.top = (1.5 + 2 - 0.6 - 0.1) * unit + "px";
-    horizonRight.style.left = (2 + 0.8 + 1.6 + 0.1) * unit + "px";
-    horizonRight.style.display = "inline";
-    horizonRight.style.cursor = "pointer";
+    var horizonNext = document.getElementById("horizonNext");
+    horizonNext.style.width = 0.6 * unit + "px";
+    horizonNext.style.height = 0.6 * unit + "px";
+    horizonNext.style.position = "absolute";
+    horizonNext.style.top = (1.5 + 2 - 0.6 - 0.1) * unit + "px";
+    horizonNext.style.left = (2 + 0.8 + 1.6 + 0.1) * unit + "px";
+    horizonNext.style.display = "inline";
+    horizonNext.style.cursor = "pointer";
+    horizonNext.draggable = false
 
-    var verticalUp = document.getElementById("verticalUp");
-    verticalUp.style.width = 0.6 * unit + "px";
-    verticalUp.style.height = 0.6 * unit + "px";
-    verticalUp.style.position = "absolute";
-    verticalUp.style.top = (1.5 - 0.6) * unit + "px";
-    verticalUp.style.left = (2 + 0.8 + 1.6 + 0.8 + 0.1) * unit + "px";
-    verticalUp.style.display = "inline";
-    verticalUp.style.cursor = "pointer";
+    var verticalPrev = document.getElementById("verticalPrev");
+    verticalPrev.style.width = 0.6 * unit + "px";
+    verticalPrev.style.height = 0.6 * unit + "px";
+    verticalPrev.style.position = "absolute";
+    verticalPrev.style.top = (1.5 - 0.6) * unit + "px";
+    verticalPrev.style.left = (2 + 0.8 + 1.6 + 0.8 + 0.1) * unit + "px";
+    verticalPrev.style.display = "inline";
+    verticalPrev.style.cursor = "pointer";
+    verticalPrev.draggable = false
 
-    var verticalDown = document.getElementById("verticalDown");
-    verticalDown.style.width = 0.6 * unit + "px";
-    verticalDown.style.height = 0.6 * unit + "px";
-    verticalDown.style.position = "absolute";
-    verticalDown.style.top = (1.5 + 0.2 + 1.6 + 0.2) * unit + "px";
-    verticalDown.style.left = (2 + 0.8 + 1.6 + 0.8 + 0.1) * unit + "px";
-    verticalDown.style.display = "inline";
-    verticalDown.style.cursor = "pointer";
-
+    var verticalNext = document.getElementById("verticalNext");
+    verticalNext.style.width = 0.6 * unit + "px";
+    verticalNext.style.height = 0.6 * unit + "px";
+    verticalNext.style.position = "absolute";
+    verticalNext.style.top = (1.5 + 0.2 + 1.6 + 0.2) * unit + "px";
+    verticalNext.style.left = (2 + 0.8 + 1.6 + 0.8 + 0.1) * unit + "px";
+    verticalNext.style.display = "inline";
+    verticalNext.style.cursor = "pointer";
+    verticalNext.draggable = false
 }
 
 function renderChessboard(layout) {
-    var tempLayout = layout.map(function (arr) {   // Copy the array
-        return arr.slice();
-    });
+    let tempLayout = layout.map(array => array.slice())
 
-    for (var i = 0; i < tempLayout.length; i++) {
-        for (var j = 0; j < tempLayout[0].length; j++) {
-            var id = tempLayout[i][j];
+    for (let i = 0; i < tempLayout.length; i++) {
+        for (let j = 0; j < tempLayout[0].length; j++) {
+            let id = tempLayout[i][j];
 
-            if (id < 0) {           // The chess is blank or should be skipped
-                // if (id > 9) {
-                //     chessmanPos[id] = [i, j];
-                // }
+            if (id < 0) {
                 continue;
             }
 
-            var chessName = index[id];
-            var chess = document.getElementById(chessName);
-            if (id == 0) {
+            let chessName = index[id];
+            let chess = document.getElementById(chessName);
+            if (id === 0) {
                 renderBigSquare(chess, i, j, tempLayout);
                 chessmanPos[id] = [i, j];
             } else if (id >= 1 && id <= 4) {
                 renderVertical(chess, i, j, tempLayout);
                 chessmanPos[id] = [i, j];
-            } else if (id == 5) {
+            } else if (id === 5) {
                 renderHorizontal(chess, i, j, tempLayout);
                 chessmanPos[id] = [i, j];
             } else {
@@ -256,6 +239,7 @@ function renderChessboard(layout) {
         }
     }
 }
+
 function renderBigSquare(chess, i, j, tempLayout) {    // Render the chesses
     chess.style.position = "absolute";
     chess.style.width = 2 * unit + "px";
@@ -300,7 +284,7 @@ function renderSquare(chess, i, j, tempLayout) {
 var chessman = 0;
 var targ;
 document.getElementById("chessboard").ondragstart = function (e) {
-    e = event || windows.event;
+    e = event || window.event;
     if (e.target) targ = e.target
     else if (e.srcElement) targ = e.srcElement
 
@@ -317,7 +301,6 @@ document.getElementById("chessboard").ondragstart = function (e) {
 }
 
 function move(e) {
-    e = event || windows.event;
     var currentarg = e.target;
     var targid = currentarg.id;
     var mouseX = Math.floor((e.clientX - origin[0]) / unit);
@@ -338,9 +321,7 @@ function move(e) {
                 renderChessboard(layout);
                 targ = document.getElementById(index[chessman]);
             }
-        }
-
-        else if (chessman == 5) {
+        } else if (chessman == 5) {
             var cond5h1 = (i10 - i == 1 && j10 == j && i11 - i == 1 && j11 - j == 1) || (i11 - i == 1 && j11 == j && i10 - i == 1 && j10 - j == 1);
             var cond5h2 = (i - i10 == 1 && j10 == j && i - i11 == 1 && j11 - j == 1) || (i - i11 == 1 && j11 == j && i - i10 == 1 && j10 - j == 1);
             if (cond5h1 || cond5h2) {
@@ -350,60 +331,47 @@ function move(e) {
                 layout[i11][j11] = 5;
                 renderChessboard(layout);
                 targ = document.getElementById(index[chessman]);
-            }
-            else if (j - mouseX == 1 && i == mouseY) {
+            } else if (j - mouseX == 1 && i == mouseY) {
                 if (mouseX == j10 && mouseY == i10) {
                     layout[i][j + 1] = 10;
-                }
-                else {
+                } else {
                     layout[i][j + 1] = 11;
                 }
                 layout[mouseY][mouseX] = chessman;
                 renderChessboard(layout);
                 targ = document.getElementById(index[chessman]);
-            }
-
-            else if (mouseX - j == 2 && i == mouseY) {
+            } else if (mouseX - j == 2 && i == mouseY) {
                 if (mouseX == j10 && mouseY == i10) {
                     layout[i][j] = 10;
-                }
-                else {
+                } else {
                     layout[i][j] = 11;
                 }
                 layout[mouseY][mouseX] = chessman;
                 renderChessboard(layout);
                 targ = document.getElementById(index[chessman]);
             }
-        }
-
-        else if (chessman > 0 && chessman < 5) {
+        } else if (chessman > 0 && chessman < 5) {
             cond1v1 = (i == i10 && j + 1 == j10 && i + 1 == i11 && j + 1 == j11) || (i == i11 && j + 1 == j11 && i + 1 == i10 && j + 1 == j10);
             cond1v2 = (i == i10 && j - 1 == j10 && i + 1 == i11 && j - 1 == j11) || (i == i11 && j - 1 == j11 && i + 1 == i10 && j - 1 == j10);
             if (i - mouseY == 1 && j == mouseX) {
                 if (mouseX == j10 && mouseY == i10) {
                     layout[i + 1][j] = 10;
-                }
-                else {
+                } else {
                     layout[i + 1][j] = 11;
                 }
                 layout[mouseY][mouseX] = chessman;
                 renderChessboard(layout);
                 targ = document.getElementById(index[chessman]);
-            }
-
-            else if (mouseY - i == 2 && j == mouseX) {
+            } else if (mouseY - i == 2 && j == mouseX) {
                 if (mouseX == j10 && mouseY == i10) {
                     layout[i][j] = 10;
-                }
-                else {
+                } else {
                     layout[i][j] = 11;
                 }
                 layout[mouseY][mouseX] = chessman;
                 renderChessboard(layout);
                 targ = document.getElementById(index[chessman]);
-            }
-
-            else if (cond1v1 || cond1v2) {
+            } else if (cond1v1 || cond1v2) {
                 layout[i][j] = 10;
                 layout[i + 1][j] = 11;
                 layout[i10][j10] = chessman;
@@ -411,9 +379,7 @@ function move(e) {
                 renderChessboard(layout);
                 targ = document.getElementById(index[chessman]);
             }
-        }
-
-        else if (chessman == 0) {
+        } else if (chessman == 0) {
             if ((i - i10 == 1 && j == j10 && i - i11 == 1 && j + 1 == j11) || (i - i11 == 1 && j == j11 && i - i10 == 1 && j + 1 == j10)) {
                 layout[i10][j10] = chessman;
                 layout[i11][j11] = chessman;
@@ -421,27 +387,21 @@ function move(e) {
                 layout[i + 1][j + 1] = 11;
                 renderChessboard(layout);
                 targ = document.getElementById(index[chessman]);
-            }
-
-            else if ((j - j10 == 1 && i == i10 && j - j11 == 1 && i11 - i == 1) || (j - j11 == 1 && i == i11 && j - j10 == 1 && i10 - i == 1)) {
+            } else if ((j - j10 == 1 && i == i10 && j - j11 == 1 && i11 - i == 1) || (j - j11 == 1 && i == i11 && j - j10 == 1 && i10 - i == 1)) {
                 layout[i10][j10] = chessman;
                 layout[i11][j11] = chessman;
                 layout[i][j + 1] = 10;
                 layout[i + 1][j + 1] = 11;
                 renderChessboard(layout);
                 targ = document.getElementById(index[chessman]);
-            }
-
-            else if ((j10 - j == 2 && i10 == i && j11 - j == 2 && i11 - i == 1) || (j11 - j == 2 && i11 == i && j10 - j == 2 && i10 - i == 1)) {
+            } else if ((j10 - j == 2 && i10 == i && j11 - j == 2 && i11 - i == 1) || (j11 - j == 2 && i11 == i && j10 - j == 2 && i10 - i == 1)) {
                 layout[i10][j10] = chessman;
                 layout[i11][j11] = chessman;
                 layout[i][j] = 10;
                 layout[i + 1][j] = 11;
                 renderChessboard(layout);
                 targ = document.getElementById(index[chessman]);
-            }
-
-            else if ((i10 - i == 2 && j10 == j && i11 - i == 2 && j11 - j == 1) || (i11 - i == 2 && j11 == j && i10 - i == 2 && j10 - j == 1)) {
+            } else if ((i10 - i == 2 && j10 == j && i11 - i == 2 && j11 - j == 1) || (i11 - i == 2 && j11 == j && i10 - i == 2 && j10 - j == 1)) {
                 layout[i10][j10] = chessman;
                 layout[i11][j11] = chessman;
                 layout[i][j] = 10;
@@ -455,24 +415,32 @@ function move(e) {
 }
 
 document.getElementById("chessboard").ondragenter = function (e) {
-    e = event || windows.event;
+    e = event || window.event;
     e.preventDefault();
 }
 
 document.getElementById("chessboard").ondragover = function (e) {
-    e = event || windows.event;
+    e = event || window.event;
     e.preventDefault();
 }
 
 
-function renderCaocao(object) {
-    var file = object.files[0];
+
+
+
+
+
+
+
+document.getElementById("file-input").addEventListener("change", function (event) {
+    let file = event.target.files[0];
     saveImg(file, document.getElementById("caocao"));
     saveImg(file, document.getElementById("selectCaocao"));
-}
+})
+
 
 function shuffle(a) {
-    var j, x, i;
+    let j, x, i;
     for (i = a.length - 1; i > 0; i--) {
         j = Math.floor(Math.random() * (i + 1));
         x = a[i];
@@ -482,64 +450,81 @@ function shuffle(a) {
     return a;
 }
 
-function leftClickZu() {
-    var show = zu.pop();
-    var img = document.getElementById("selectZu");
-    img.src = "images/zu/" + show;
-    zu.unshift(show);
+let zuIndex = ["zu1", "zu2", "zu3", "zu4"];
+let verticalIndex = ["zhangfei", "machao", "huangzhong", "zhaoyun"];
+
+let selectors = document.getElementsByClassName("selector")
+for (let selector of selectors) {
+    selector.addEventListener("click", function (event) {
+        let target = event.target
+        if (target.id === "selectHorizon") {
+            document.getElementById("guanyu").src = target.src
+        } else if (target.id === "selectZu") {
+            let zu = zuIndex.shift()
+            document.getElementById(zu).src = target.src
+            zuIndex.push(zu)
+        } else {
+            let vertical = verticalIndex.shift()
+            document.getElementById(vertical).src = target.src
+            verticalIndex.push(vertical)
+        }
+    })
 }
 
-function rightClickZu() {
-    var show = zu.shift();
-    zu.push(show);
-    var img = document.getElementById("selectZu");
-    img.src = "images/zu/" + zu.peekFront();
+let zu = [];
+for (let i = 1; i < 25; i++) {
+    zu.push(i.toString() + ".jpg");
+}
+zu = shuffle(zu);
+
+let horizon = [];
+for (let i = 1; i < 22; i++) {
+    horizon.push(i.toString() + ".jpg");
+}
+horizon = shuffle(horizon);
+
+let vertical = [];
+for (let i = 1; i < 20; i++) {
+    vertical.push(i.toString() + ".jpg");
+}
+vertical = shuffle(vertical);
+
+let prevs = document.getElementsByClassName("prev")
+for (let prev of prevs) {
+    prev.addEventListener("click", function (event) {
+        let target = event.target
+        if (target.id === "zuPrev") {
+            let image = zu.shift()
+            document.getElementById("selectZu").src = "images/zu/" + image
+            zu.push(image)
+        } else if (target.id === "verticalPrev") {
+            let image = vertical.shift()
+            document.getElementById("selectVertical").src = "images/vertical/" + image
+            vertical.push(image)
+        } else {
+            let image = horizon.shift();
+            document.getElementById("selectHorizon").src = "images/horizon/" + image
+            horizon.push(image)
+        }
+    })
 }
 
-function upClickVertical() {
-    var show = vertical.pop();
-    var img = document.getElementById("selectVertical");
-    img.src = "images/vertical/" + show;
-    vertical.unshift(show);
-}
-
-function downClickVertical() {
-    var show = vertical.shift();
-    vertical.push(show);
-    var img = document.getElementById("selectVertical");
-    img.src = "images/vertical/" + vertical.peekFront();
-}
-
-function leftClickHorizon() {
-    var show = horizon.pop();
-    var img = document.getElementById("selectHorizon");
-    img.src = "images/horizon/" + show;
-    horizon.unshift(show);
-}
-
-function rightClickHorizon() {
-    var show = horizon.shift();
-    horizon.push(show);
-    var img = document.getElementById("selectHorizon");
-    img.src = "images/horizon/" + horizon.peekFront();
-}
-
-function clickHorizon() {
-    var guanyu = document.getElementById("guanyu");
-    var horizon = document.getElementById("selectHorizon");
-    guanyu.src = horizon.src;
-}
-
-function clickZu() {
-    var zuImg = document.getElementById(zuIndex.peekFront());
-    var select = document.getElementById("selectZu");
-    zuImg.src = select.src;
-    zuIndex.push(zuIndex.shift());
-}
-
-function clickVertical() {
-    var verticalImg = document.getElementById(verticalIndex.peekFront());
-    var select = document.getElementById("selectVertical");
-    verticalImg.src = select.src;
-    verticalIndex.push(verticalIndex.shift());
+let nexts = document.getElementsByClassName("next")
+for (let next of nexts) {
+    next.addEventListener("click", function (event) {
+        let target = event.target
+        if (target.id === "zuNext") {
+            let image = zu.shift()
+            document.getElementById("selectZu").src = "images/zu/" + image
+            zu.push(image)
+        } else if (target.id === "verticalNext") {
+            let image = vertical.shift()
+            document.getElementById("selectVertical").src = "images/vertical/" + image
+            vertical.push(image)
+        } else {
+            let image = horizon.shift();
+            document.getElementById("selectHorizon").src = "images/horizon/" + image
+            horizon.push(image)
+        }
+    })
 }

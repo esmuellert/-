@@ -9,49 +9,49 @@
     <meta http-equiv="cache-control" content="no-cache">
 </head>
 
-<body class="nonselect">
-        <img id="chessBackground" src="images/chessboard.png"  alt="chessboard" class="hide">
-    <div id="chessboard" >
-        <img draggable="true" id="caocao" src="images/blank.jpg" class="hide">
-        <img draggable="true" id="zhangfei" src="images/blank.jpg" class="hide">
-        <img draggable="true" id="machao" src="images/blank.jpg" class="hide">
-        <img draggable="true" id="huangzhong" src="images/blank.jpg" class="hide">
-        <img draggable="true" id="zhaoyun" src="images/blank.jpg" class="hide">
-        <img draggable="true" id="guanyu" src="images/blank.jpg" class="hide">
-        <img draggable="true" id="zu1" src="images/blank.jpg" class="hide">
-        <img draggable="true" id="zu2" src="images/blank.jpg" class="hide">
-        <img draggable="true" id="zu3" src="images/blank.jpg" class="hide">
-        <img draggable="true" id="zu4" src="images/blank.jpg" class="hide">
-        <img id="chessboard1" src="images/blank.jpg" alt="chessboard1" class="hide">
-        <img src="images/blank.jpg" alt="chessboard2" class="hide" id="chessboard2">
+<body class="non-select">
+<img id="chessBackground" draggable="false" src="images/chessboard.png" alt="chessboard" class="hide">
+<div id="chessboard">
+    <img draggable="true" id="caocao" src="images/blank.jpg" class="hide">
+    <img draggable="true" id="zhangfei" src="images/blank.jpg" class="hide">
+    <img draggable="true" id="machao" src="images/blank.jpg" class="hide">
+    <img draggable="true" id="huangzhong" src="images/blank.jpg" class="hide">
+    <img draggable="true" id="zhaoyun" src="images/blank.jpg" class="hide">
+    <img draggable="true" id="guanyu" src="images/blank.jpg" class="hide">
+    <img draggable="true" id="zu1" src="images/blank.jpg" class="hide">
+    <img draggable="true" id="zu2" src="images/blank.jpg" class="hide">
+    <img draggable="true" id="zu3" src="images/blank.jpg" class="hide">
+    <img draggable="true" id="zu4" src="images/blank.jpg" class="hide">
+    <img id="chessboard1" src="images/blank.jpg" alt="chessboard1" class="hide">
+    <img src="images/blank.jpg" alt="chessboard2" class="hide" id="chessboard2">
+</div>
+
+<div id="selectArea">
+    <p id="hrd" class="hrd">HuaRongDao</p>
+
+    <div id="inputCaocao">
+        <label for="file-input">
+            <img id="selectCaocao" src="images/DSC_5536.jpg" class="hide" alt="selectCaocao"/>
+        </label>
+        <input id="file-input" type="file" class="hide"/>
     </div>
 
-    <div id="selectArea">
-        <p id="hrd" class="hrd">HuaRongDao</p>
+    <img id="selectZu" src="images/zu/8.jpg" class="selector">
+    <img id="selectVertical" src="images/vertical/18.jpg" class="selector">
+    <img id="selectHorizon" src="images/horizon/6.jpg" class="selector">
+    <img id="zuPrev" src="images/left.jpg" class="prev">
+    <img id="zuNext" src="images/right.jpg" class="next">
+    <img id="verticalPrev" src="images/up.jpg" class="prev">
+    <img id="verticalNext" src="images/down.jpg" class="next">
+    <img id="horizonPrev" src="images/left.jpg" class="prev">
+    <img id="horizonNext" src="images/right.jpg" class="next">
 
-        <div id="inputCaocao" class="image-upload">
-            <label for="file-input">
-                <img id="selectCaocao" src="images/DSC_5536.jpg" class="hide" />
-            </label>
-            <input id="file-input" type="file" onchange="renderCaocao(this)" />
-        </div>
+</div>
 
-        <img id="selectZu" src="images/zu/8.jpg" onclick="clickZu()" class="hide">
-        <img id="selectVertical" src="images/vertical/18.jpg" onclick="clickVertical()" class="hide">
-        <img id="selectHorizon" src="images/horizon/6.jpg" onclick="clickHorizon()" class="hide">
-        <img id="zuLeft" src="images/left.jpg" onclick="leftClickZu()" class="hide">
-        <img id="zuRight" src="images/right.jpg" onclick="rightClickZu()" class="hide">
-        <img id="verticalUp" src="images/up.jpg" onclick="upClickVertical()" class="hide">
-        <img id="verticalDown" src="images/down.jpg" onclick="downClickVertical()" class="hide">
-        <img id="horizonLeft" src="images/left.jpg" onclick="leftClickHorizon()" class="hide">
-        <img id="horizonRight" src="images/right.jpg" onclick="rightClickHorizon()" class="hide">
-
-    </div>
-
-    <script src="http://cdn.muops.cn/js/exif.js"></script>
-    <script src="scripts/orientation.js"></script>
-    <script src="scripts/deque.js"></script>
-    <script src="scripts/main.js"></script>
+<script src="http://cdn.muops.cn/js/exif.js"></script>
+<script src="scripts/orientation.js"></script>
+<script src="scripts/deque.js"></script>
+<script src="scripts/main.js"></script>
 </body>
 
 </html>

@@ -2,19 +2,18 @@
     display: none;
 }
 
-.image-upload > input
-{
+.image-upload > input {
     display: none;
 }
 
-body
-{
-/* 加入一下两行 */
-min-width: 1200px;
-min-height: 300px;
+body {
+    /* 加入一下两行 */
+    min-width: 1200px;
+    min-height: 300px;
 
 }
-.nonselect {
+
+.non-select {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
@@ -23,7 +22,19 @@ min-height: 300px;
     user-select: none;
 }
 
-.hrd{
+.hrd {
     font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
     display: none;
+}
+
+.selector {
+    display: none;
+}
+
+.next {
+    display: none;
+}
+
+.prev {
+    display:none
 }
