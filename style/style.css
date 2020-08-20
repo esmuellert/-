@@ -7,7 +7,6 @@
 }
 
 body {
-    /* 加入一下两行 */
     min-width: 1200px;
     min-height: 300px;
 
@@ -36,5 +35,13 @@ body {
 }
 
 .prev {
-    display:none
+    display: none;
+}
+
+.zu {
+    display: none;
+}
+
+.vertical {
+    display: none;
 }
