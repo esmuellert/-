@@ -363,7 +363,7 @@ document.getElementById("chessboard").addEventListener("mousedown", function (ev
                         layout[pieceY - 1][pieceX + 1] = temp
                     }
                 }
-            } else {
+            } else if (target.id === "caocao"){
                 if (mouseY < pieceY && layout[pieceY - 1][pieceX] + layout[pieceY - 1][pieceX + 1] > 20) {
                     layout[pieceY - 1][pieceX] = 0
                     layout[pieceY - 1][pieceX + 1] = 0
