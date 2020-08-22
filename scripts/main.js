@@ -3,8 +3,8 @@ let layout = [
     [1, 0, 0, 2],
     [3, 5, 5, 4],
     [3, 6, 7, 4],
-    [8, 10, 11, 9]
-]
+    [8, 10, 11, 9],
+];
 
 const origin = [0, 0];
 
@@ -20,21 +20,20 @@ const pieceIndex = {
     8: "zu3",
     9: "zu4",
     10: "chessboard1",
-    11: "chessboard2"
+    11: "chessboard2",
 };
-
 
 let piecePos = {};
 
 window.onload = function () {
     renderInterface();
     renderChessboard(layout);
-}
+};
 
 window.onresize = function () {
     renderInterface();
     renderChessboard(layout);
-}
+};
 
 function renderInterface() {
     // chessboard.style.display = "none";
@@ -47,12 +46,12 @@ function renderInterface() {
     var chessboard = document.getElementById("chessboard");
     // chessboard.style.borderStyle = "solid";
     // chessboard.style.borderWidth = 2 + "px";
-    chessboard.style.background = "url(images/blank.jpg)"
+    chessboard.style.background = "url(images/blank.jpg)";
     chessboard.style.cursor = "pointer";
     chessboard.style.position = "relative";
     chessboard.style.width = 4 * unit + "px";
     chessboard.style.height = 5 * unit + "px";
-    origin[0] = (screenWidth - 4 * unit) * 5 / 6;
+    origin[0] = ((screenWidth - 4 * unit) * 5) / 6;
     origin[1] = (screenHeight - 5 * unit) / 2;
     if (origin[0] < 7 * unit) {
         origin[0] = 7 * unit;
@@ -83,26 +82,26 @@ function renderInterface() {
     hrd.style.display = "block";
     hrd.style.margin = 0 + "px";
     hrd.style.fontSize = unit / 4 + "px";
-    hrd.draggable = false
+    hrd.draggable = false;
 
     var inputCaocao = document.getElementById("inputCaocao");
     inputCaocao.style.width = 2 * unit + "px";
     inputCaocao.style.height = 2 * unit + "px";
     inputCaocao.style.position = "absolute";
     inputCaocao.style.top = 1.5 * unit + "px";
-    inputCaocao.draggable = false
+    inputCaocao.draggable = false;
 
     var selectCaocao = document.getElementById("selectCaocao");
     selectCaocao.style.width = 2 * unit + "px";
     selectCaocao.style.height = 2 * unit + "px";
     selectCaocao.style.display = "inline";
     selectCaocao.style.cursor = "pointer";
-    selectCaocao.draggable = false
+    selectCaocao.draggable = false;
 
     var fileInput = document.getElementById("file-input");
     fileInput.style.width = 2 * unit + "px";
     fileInput.style.height = 2 * unit + "px";
-    fileInput.draggable = false
+    fileInput.draggable = false;
 
     var zu = document.getElementById("selectZu");
     zu.style.width = 0.8 * unit + "px";
@@ -112,7 +111,7 @@ function renderInterface() {
     zu.style.left = (2 + 1.2) * unit + "px";
     zu.style.display = "inline";
     zu.style.cursor = "pointer";
-    zu.draggable = false
+    zu.draggable = false;
 
     var guanyu = document.getElementById("selectHorizon");
     guanyu.style.width = 1.6 * unit + "px";
@@ -122,7 +121,7 @@ function renderInterface() {
     guanyu.style.left = (2 + 0.8) * unit + "px";
     guanyu.style.display = "inline";
     guanyu.style.cursor = "pointer";
-    guanyu.draggable = false
+    guanyu.draggable = false;
 
     var verti = document.getElementById("selectVertical");
     verti.style.width = 0.8 * unit + "px";
@@ -132,7 +131,7 @@ function renderInterface() {
     verti.style.left = (2.8 + 1.6 + 0.8) * unit + "px";
     verti.style.display = "inline";
     verti.style.cursor = "pointer";
-    verti.draggable = false
+    verti.draggable = false;
 
     var zuPrev = document.getElementById("zuPrev");
     zuPrev.style.width = 0.6 * unit + "px";
@@ -142,7 +141,7 @@ function renderInterface() {
     zuPrev.style.left = (2 + 0.4) * unit + "px";
     zuPrev.style.display = "inline";
     zuPrev.style.cursor = "pointer";
-    zuPrev.draggable = false
+    zuPrev.draggable = false;
 
     var zuNext = document.getElementById("zuNext");
     zuNext.style.width = 0.6 * unit + "px";
@@ -152,7 +151,7 @@ function renderInterface() {
     zuNext.style.left = (2 + 0.4 + 0.6 + 0.2 + 0.8 + 0.2) * unit + "px";
     zuNext.style.display = "inline";
     zuNext.style.cursor = "pointer";
-    zuNext.draggable = false
+    zuNext.draggable = false;
 
     var horizonPrev = document.getElementById("horizonPrev");
     horizonPrev.style.width = 0.6 * unit + "px";
@@ -162,7 +161,7 @@ function renderInterface() {
     horizonPrev.style.left = (2 + 0.8 - 0.1 - 0.6) * unit + "px";
     horizonPrev.style.display = "inline";
     horizonPrev.style.cursor = "pointer";
-    horizonPrev.draggable = false
+    horizonPrev.draggable = false;
 
     var horizonNext = document.getElementById("horizonNext");
     horizonNext.style.width = 0.6 * unit + "px";
@@ -172,7 +171,7 @@ function renderInterface() {
     horizonNext.style.left = (2 + 0.8 + 1.6 + 0.1) * unit + "px";
     horizonNext.style.display = "inline";
     horizonNext.style.cursor = "pointer";
-    horizonNext.draggable = false
+    horizonNext.draggable = false;
 
     var verticalPrev = document.getElementById("verticalPrev");
     verticalPrev.style.width = 0.6 * unit + "px";
@@ -182,7 +181,7 @@ function renderInterface() {
     verticalPrev.style.left = (2 + 0.8 + 1.6 + 0.8 + 0.1) * unit + "px";
     verticalPrev.style.display = "inline";
     verticalPrev.style.cursor = "pointer";
-    verticalPrev.draggable = false
+    verticalPrev.draggable = false;
 
     var verticalNext = document.getElementById("verticalNext");
     verticalNext.style.width = 0.6 * unit + "px";
@@ -192,11 +191,11 @@ function renderInterface() {
     verticalNext.style.left = (2 + 0.8 + 1.6 + 0.8 + 0.1) * unit + "px";
     verticalNext.style.display = "inline";
     verticalNext.style.cursor = "pointer";
-    verticalNext.draggable = false
+    verticalNext.draggable = false;
 }
 
 function renderChessboard(layout) {
-    let tempLayout = layout.map(array => array.slice())
+    let tempLayout = layout.map((array) => array.slice());
 
     for (let i = 0; i < tempLayout.length; i++) {
         for (let j = 0; j < tempLayout[0].length; j++) {
@@ -220,12 +219,13 @@ function renderChessboard(layout) {
                 renderSquare(piece, i, j, tempLayout);
                 piecePos[piece.id] = [i, j];
             }
-            piece.style.zIndex = "1"
+            piece.style.zIndex = "1";
         }
     }
 }
 
-function renderBigSquare(chess, i, j, tempLayout) {    // Render the chesses
+function renderBigSquare(chess, i, j, tempLayout) {
+    // Render the chesses
     chess.style.position = "absolute";
     chess.style.width = 2 * unit + "px";
     chess.style.height = 2 * unit + "px";
@@ -265,145 +265,199 @@ function renderSquare(chess, i, j, tempLayout) {
     chess.style.top = i * unit + "px";
     chess.style.display = "inline";
     if (chess.id === "chessboard1" || chess.id === "chessboard2") {
-        chess.draggable = false
-        chess.style.cursor = "default"
+        chess.draggable = false;
+        chess.style.cursor = "default";
     }
 }
 
-document.getElementById("chessboard").addEventListener("mousedown", function (event) {
-    let target = event.target
-    event.preventDefault()
-    let pos1 = 0, pos2 = 0, pos3 = event.clientX, pos4 = event.clientY, z = target.style.zIndex
-    let move = function (event) {
-        pos1 = pos3 - event.clientX
-        pos2 = pos4 - event.clientY
-        pos3 = event.clientX
-        pos4 = event.clientY
-        target.style.zIndex = "999"
-        target.style.top = target.offsetTop - pos2 + "px"
-        target.style.left = target.offsetLeft - pos1 + "px"
-    }
-    let stop = function (event) {
-        document.removeEventListener("mousemove", move)
-        document.removeEventListener("mouseup", stop)
-        target.style.zIndex = "0"
-        const mouseX = Math.floor((event.clientX - origin[0]) / unit);
-        const mouseY = Math.floor((event.clientY - origin[1]) / unit);
-        const pieceX = piecePos[target.id][1]
-        const pieceY = piecePos[target.id][0]
+document
+    .getElementById("chessboard")
+    .addEventListener("mousedown", function (event) {
+        let target = event.target;
+        event.preventDefault();
+        let pos1 = 0,
+            pos2 = 0,
+            pos3 = event.clientX,
+            pos4 = event.clientY,
+            z = target.style.zIndex;
+        let move = function (event) {
+            pos1 = pos3 - event.clientX;
+            pos2 = pos4 - event.clientY;
+            pos3 = event.clientX;
+            pos4 = event.clientY;
+            target.style.zIndex = "999";
+            target.style.top = target.offsetTop - pos2 + "px";
+            target.style.left = target.offsetLeft - pos1 + "px";
+        };
+        let stop = function (event) {
+            document.removeEventListener("mousemove", move);
+            document.removeEventListener("mouseup", stop);
+            target.style.zIndex = "0";
+            const mouseX = Math.floor((event.clientX - origin[0]) / unit);
+            const mouseY = Math.floor((event.clientY - origin[1]) / unit);
+            const pieceX = piecePos[target.id][1];
+            const pieceY = piecePos[target.id][0];
 
-        let elementDown = document.elementFromPoint(event.clientX, event.clientY)
-        const diffX = Math.abs(pieceX - mouseX)
-        const diffY = Math.abs(pieceY - mouseY)
+            let elementDown = document.elementFromPoint(
+                event.clientX,
+                event.clientY
+            );
+            const diffX = Math.abs(pieceX - mouseX);
+            const diffY = Math.abs(pieceY - mouseY);
 
+            if (
+                elementDown.id === "chessboard1" ||
+                elementDown.id === "chessboard2"
+            ) {
+                if (
+                    target.className === "zu" &&
+                    ((diffX === 1 && diffY === 0) ||
+                        (diffY === 1 && diffX === 0))
+                ) {
+                    const temp = layout[mouseY][mouseX];
+                    layout[mouseY][mouseX] = layout[pieceY][pieceX];
+                    layout[pieceY][pieceX] = temp;
+                } else if (target.className === "vertical") {
+                    if (diffX === 0) {
+                        if (diffY === 1) {
+                            const temp = layout[mouseY][mouseX];
+                            layout[mouseY][mouseX] = layout[pieceY + 1][pieceX];
+                            layout[pieceY + 1][pieceX] = temp;
+                        } else if (mouseY - pieceY === 2) {
+                            const temp = layout[mouseY][mouseX];
+                            layout[mouseY][mouseX] = layout[pieceY][pieceX];
+                            layout[pieceY][pieceX] = temp;
+                        }
+                    } else if (diffX === 1) {
+                        if (
+                            mouseX > pieceX &&
+                            layout[pieceY][pieceX + 1] > 9 &&
+                            layout[pieceY + 1][pieceX + 1] > 9
+                        ) {
+                            let temp = layout[pieceY][pieceX + 1];
+                            layout[pieceY][pieceX + 1] = layout[pieceY][pieceX];
+                            layout[pieceY][pieceX] = temp;
 
-        if (elementDown.id === "chessboard1" || elementDown.id === "chessboard2") {
-            if (target.className === "zu" && ((diffX === 1 && diffY === 0)
-                || (diffY === 1 && diffX === 0))) {
-                const temp = layout[mouseY][mouseX]
-                layout[mouseY][mouseX] = layout[pieceY][pieceX]
-                layout[pieceY][pieceX] = temp
-            } else if (target.className === "vertical") {
-                if (diffX === 0) {
-                    if (diffY === 1) {
-                        const temp = layout[mouseY][mouseX]
-                        layout[mouseY][mouseX] = layout[pieceY + 1][pieceX]
-                        layout[pieceY + 1][pieceX] = temp
-                    } else if (mouseY - pieceY === 2) {
-                        const temp = layout[mouseY][mouseX]
-                        layout[mouseY][mouseX] = layout[pieceY][pieceX]
-                        layout[pieceY][pieceX] = temp
+                            temp = layout[pieceY + 1][pieceX];
+                            layout[pieceY + 1][pieceX] =
+                                layout[pieceY + 1][pieceX + 1];
+                            layout[pieceY + 1][pieceX + 1] = temp;
+                        } else if (
+                            mouseX < pieceX &&
+                            layout[pieceY][pieceX - 1] > 9 &&
+                            layout[pieceY + 1][pieceX - 1] > 9
+                        ) {
+                            let temp = layout[pieceY][pieceX - 1];
+                            layout[pieceY][pieceX - 1] = layout[pieceY][pieceX];
+                            layout[pieceY][pieceX] = temp;
+
+                            temp = layout[pieceY + 1][pieceX];
+                            layout[pieceY + 1][pieceX] =
+                                layout[pieceY + 1][pieceX - 1];
+                            layout[pieceY + 1][pieceX - 1] = temp;
+                        }
                     }
-                } else if (diffX === 1) {
-                    if (mouseX > pieceX && (layout[pieceY][pieceX + 1] > 9 && layout[pieceY + 1][pieceX + 1] > 9)) {
-                        let temp = layout[pieceY][pieceX + 1]
-                        layout[pieceY][pieceX + 1] = layout[pieceY][pieceX]
-                        layout[pieceY][pieceX] = temp
+                } else if (target.id === "guanyu") {
+                    if (diffY === 0) {
+                        if (diffX === 1) {
+                            const temp = layout[mouseY][mouseX];
+                            layout[mouseY][mouseX] = layout[pieceY][pieceX + 1];
+                            layout[pieceY][pieceX + 1] = temp;
+                        } else if (mouseX - pieceX === 2) {
+                            const temp = layout[mouseY][mouseX];
+                            layout[mouseY][mouseX] = layout[pieceY][pieceX];
+                            layout[pieceY][pieceX] = temp;
+                        }
+                    } else if (diffY === 1) {
+                        if (
+                            mouseY > pieceY &&
+                            layout[pieceY + 1][pieceX] > 9 &&
+                            layout[pieceY + 1][pieceX + 1] > 9
+                        ) {
+                            let temp = layout[pieceY + 1][pieceX];
+                            layout[pieceY + 1][pieceX] = layout[pieceY][pieceX];
+                            layout[pieceY][pieceX] = temp;
 
-                        temp = layout[pieceY + 1][pieceX]
-                        layout[pieceY + 1][pieceX] = layout[pieceY + 1][pieceX + 1]
-                        layout[pieceY + 1][pieceX + 1] = temp
-                    } else if (mouseX < pieceX && (layout[pieceY][pieceX - 1] > 9 && layout[pieceY + 1][pieceX - 1] > 9)) {
-                        let temp = layout[pieceY][pieceX - 1]
-                        layout[pieceY][pieceX - 1] = layout[pieceY][pieceX]
-                        layout[pieceY][pieceX] = temp
+                            temp = layout[pieceY][pieceX + 1];
+                            layout[pieceY][pieceX + 1] =
+                                layout[pieceY + 1][pieceX + 1];
+                            layout[pieceY + 1][pieceX + 1] = temp;
+                        } else if (
+                            mouseY < pieceY &&
+                            layout[pieceY - 1][pieceX] > 9 &&
+                            layout[pieceY - 1][pieceX + 1] > 9
+                        ) {
+                            let temp = layout[pieceY - 1][pieceX];
+                            layout[pieceY - 1][pieceX] = layout[pieceY][pieceX];
+                            layout[pieceY][pieceX] = temp;
 
-                        temp = layout[pieceY + 1][pieceX]
-                        layout[pieceY + 1][pieceX] = layout[pieceY + 1][pieceX - 1]
-                        layout[pieceY + 1][pieceX - 1] = temp
+                            temp = layout[pieceY][pieceX + 1];
+                            layout[pieceY][pieceX + 1] =
+                                layout[pieceY - 1][pieceX + 1];
+                            layout[pieceY - 1][pieceX + 1] = temp;
+                        }
                     }
-                }
-            } else if (target.id === "guanyu") {
-                if (diffY === 0) {
-                    if (diffX === 1) {
-                        const temp = layout[mouseY][mouseX]
-                        layout[mouseY][mouseX] = layout[pieceY][pieceX + 1]
-                        layout[pieceY][pieceX + 1] = temp
-                    } else if (mouseX - pieceX === 2) {
-                        const temp = layout[mouseY][mouseX]
-                        layout[mouseY][mouseX] = layout[pieceY][pieceX]
-                        layout[pieceY][pieceX] = temp
+                } else if (target.id === "caocao") {
+                    if (
+                        mouseY < pieceY &&
+                        layout[pieceY - 1][pieceX] +
+                        layout[pieceY - 1][pieceX + 1] >
+                        20
+                    ) {
+                        layout[pieceY - 1][pieceX] = 0;
+                        layout[pieceY - 1][pieceX + 1] = 0;
+                        layout[pieceY + 1][pieceX] = 10;
+                        layout[pieceY + 1][pieceX + 1] = 11;
+                    } else if (
+                        mouseY > pieceY &&
+                        layout[pieceY + 2][pieceX] +
+                        layout[pieceY + 2][pieceX + 1] >
+                        20
+                    ) {
+                        layout[pieceY + 2][pieceX] = 0;
+                        layout[pieceY + 2][pieceX + 1] = 0;
+                        layout[pieceY][pieceX] = 10;
+                        layout[pieceY][pieceX + 1] = 11;
+                    } else if (
+                        mouseX < pieceX &&
+                        layout[pieceY][pieceX - 1] +
+                        layout[pieceY + 1][pieceX - 1] >
+                        20
+                    ) {
+                        layout[pieceY][pieceX - 1] = 0;
+                        layout[pieceY + 1][pieceX - 1] = 0;
+                        layout[pieceY + 1][pieceX + 1] = 10;
+                        layout[pieceY][pieceX + 1] = 11;
+                    } else if (
+                        mouseX > pieceX &&
+                        layout[pieceY][pieceX + 2] +
+                        layout[pieceY + 1][pieceX + 2] >
+                        20
+                    ) {
+                        layout[pieceY][pieceX + 2] = 0;
+                        layout[pieceY + 1][pieceX + 2] = 0;
+                        layout[pieceY][pieceX] = 10;
+                        layout[pieceY + 1][pieceX] = 11;
                     }
-                } else if (diffY === 1) {
-                    if (mouseY > pieceY && (layout[pieceY + 1][pieceX] > 9 && layout[pieceY + 1][pieceX + 1] > 9)) {
-                        let temp = layout[pieceY + 1][pieceX]
-                        layout[pieceY + 1][pieceX] = layout[pieceY][pieceX]
-                        layout[pieceY][pieceX] = temp
-
-                        temp = layout[pieceY][pieceX + 1]
-                        layout[pieceY][pieceX + 1] = layout[pieceY + 1][pieceX + 1]
-                        layout[pieceY + 1][pieceX + 1] = temp
-                    } else if (mouseY < pieceY && (layout[pieceY - 1][pieceX] > 9 && layout[pieceY - 1][pieceX + 1] > 9)) {
-                        let temp = layout[pieceY - 1][pieceX]
-                        layout[pieceY - 1][pieceX] = layout[pieceY][pieceX]
-                        layout[pieceY][pieceX] = temp
-
-                        temp = layout[pieceY][pieceX + 1]
-                        layout[pieceY][pieceX + 1] = layout[pieceY - 1][pieceX + 1]
-                        layout[pieceY - 1][pieceX + 1] = temp
-                    }
-                }
-            } else if (target.id === "caocao"){
-                if (mouseY < pieceY && layout[pieceY - 1][pieceX] + layout[pieceY - 1][pieceX + 1] > 20) {
-                    layout[pieceY - 1][pieceX] = 0
-                    layout[pieceY - 1][pieceX + 1] = 0
-                    layout[pieceY + 1][pieceX] = 10
-                    layout[pieceY + 1][pieceX + 1] = 11
-                } else if (mouseY > pieceY && layout[pieceY + 2][pieceX] + layout[pieceY + 2][pieceX + 1] > 20) {
-                    layout[pieceY + 2][pieceX] = 0
-                    layout[pieceY + 2][pieceX + 1] = 0
-                    layout[pieceY][pieceX] = 10
-                    layout[pieceY][pieceX + 1] = 11
-                } else if (mouseX < pieceX && layout[pieceY][pieceX - 1] + layout[pieceY + 1][pieceX - 1] > 20) {
-                    layout[pieceY][pieceX - 1] = 0
-                    layout[pieceY + 1][pieceX - 1] = 0
-                    layout[pieceY + 1][pieceX + 1] = 10
-                    layout[pieceY][pieceX + 1] = 11
-                } else if (mouseX > pieceX && layout[pieceY][pieceX + 2] + layout[pieceY + 1][pieceX + 2] > 20) {
-                    layout[pieceY][pieceX + 2] = 0
-                    layout[pieceY + 1][pieceX + 2] = 0
-                    layout[pieceY][pieceX] = 10
-                    layout[pieceY + 1][pieceX] = 11
                 }
             }
+
+            target.style.zIndex = z;
+            renderChessboard(layout);
+        };
+        if (target.id !== "chessboard1" && target.id !== "chessboard2") {
+            document.addEventListener("mousemove", move);
+            document.addEventListener("mouseup", stop);
         }
+    });
 
-        target.style.zIndex = z
-        renderChessboard(layout)
-    }
-    if (target.id !== "chessboard1" && target.id !== "chessboard2") {
-        document.addEventListener("mousemove", move)
-        document.addEventListener("mouseup", stop)
-    }
-})
-
-
-document.getElementById("file-input").addEventListener("change", function (event) {
-    let file = event.target.files[0];
-    saveImg(file, document.getElementById("caocao"));
-    saveImg(file, document.getElementById("selectCaocao"));
-})
-
+document
+    .getElementById("file-input")
+    .addEventListener("change", function (event) {
+        let file = event.target.files[0];
+        saveImg(file, document.getElementById("caocao"));
+        saveImg(file, document.getElementById("selectCaocao"));
+    });
 
 function shuffle(a) {
     let j, x, i;
@@ -419,22 +473,22 @@ function shuffle(a) {
 let zuIndex = ["zu1", "zu2", "zu3", "zu4"];
 let verticalIndex = ["zhangfei", "machao", "huangzhong", "zhaoyun"];
 
-let selectors = document.getElementsByClassName("selector")
+let selectors = document.getElementsByClassName("selector");
 for (let selector of selectors) {
     selector.addEventListener("click", function (event) {
-        let target = event.target
+        let target = event.target;
         if (target.id === "selectHorizon") {
-            document.getElementById("guanyu").src = target.src
+            document.getElementById("guanyu").src = target.src;
         } else if (target.id === "selectZu") {
-            let zu = zuIndex.shift()
-            document.getElementById(zu).src = target.src
-            zuIndex.push(zu)
+            let zu = zuIndex.shift();
+            document.getElementById(zu).src = target.src;
+            zuIndex.push(zu);
         } else {
-            let vertical = verticalIndex.shift()
-            document.getElementById(vertical).src = target.src
-            verticalIndex.push(vertical)
+            let vertical = verticalIndex.shift();
+            document.getElementById(vertical).src = target.src;
+            verticalIndex.push(vertical);
         }
-    })
+    });
 }
 
 let zu = [];
@@ -455,42 +509,46 @@ for (let i = 1; i < 20; i++) {
 }
 vertical = shuffle(vertical);
 
-let prevs = document.getElementsByClassName("prev")
+let prevs = document.getElementsByClassName("prev");
 for (let prev of prevs) {
     prev.addEventListener("click", function (event) {
-        let target = event.target
+        let target = event.target;
         if (target.id === "zuPrev") {
-            let image = zu.shift()
-            document.getElementById("selectZu").src = "images/zu/" + image
-            zu.push(image)
+            let image = zu.shift();
+            document.getElementById("selectZu").src = "images/zu/" + image;
+            zu.push(image);
         } else if (target.id === "verticalPrev") {
-            let image = vertical.shift()
-            document.getElementById("selectVertical").src = "images/vertical/" + image
-            vertical.push(image)
+            let image = vertical.shift();
+            document.getElementById("selectVertical").src =
+                "images/vertical/" + image;
+            vertical.push(image);
         } else {
             let image = horizon.shift();
-            document.getElementById("selectHorizon").src = "images/horizon/" + image
-            horizon.push(image)
+            document.getElementById("selectHorizon").src =
+                "images/horizon/" + image;
+            horizon.push(image);
         }
-    })
+    });
 }
 
-let nexts = document.getElementsByClassName("next")
+let nexts = document.getElementsByClassName("next");
 for (let next of nexts) {
     next.addEventListener("click", function (event) {
-        let target = event.target
+        let target = event.target;
         if (target.id === "zuNext") {
-            let image = zu.shift()
-            document.getElementById("selectZu").src = "images/zu/" + image
-            zu.push(image)
+            let image = zu.shift();
+            document.getElementById("selectZu").src = "images/zu/" + image;
+            zu.push(image);
         } else if (target.id === "verticalNext") {
-            let image = vertical.shift()
-            document.getElementById("selectVertical").src = "images/vertical/" + image
-            vertical.push(image)
+            let image = vertical.shift();
+            document.getElementById("selectVertical").src =
+                "images/vertical/" + image;
+            vertical.push(image);
         } else {
             let image = horizon.shift();
-            document.getElementById("selectHorizon").src = "images/horizon/" + image
-            horizon.push(image)
+            document.getElementById("selectHorizon").src =
+                "images/horizon/" + image;
+            horizon.push(image);
         }
-    })
+    });
 }
