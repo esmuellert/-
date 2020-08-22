@@ -401,8 +401,8 @@ document
                     if (
                         mouseY < pieceY &&
                         layout[pieceY - 1][pieceX] +
-                        layout[pieceY - 1][pieceX + 1] >
-                        20
+                            layout[pieceY - 1][pieceX + 1] >
+                            20
                     ) {
                         layout[pieceY - 1][pieceX] = 0;
                         layout[pieceY - 1][pieceX + 1] = 0;
@@ -411,8 +411,8 @@ document
                     } else if (
                         mouseY > pieceY &&
                         layout[pieceY + 2][pieceX] +
-                        layout[pieceY + 2][pieceX + 1] >
-                        20
+                            layout[pieceY + 2][pieceX + 1] >
+                            20
                     ) {
                         layout[pieceY + 2][pieceX] = 0;
                         layout[pieceY + 2][pieceX + 1] = 0;
@@ -421,8 +421,8 @@ document
                     } else if (
                         mouseX < pieceX &&
                         layout[pieceY][pieceX - 1] +
-                        layout[pieceY + 1][pieceX - 1] >
-                        20
+                            layout[pieceY + 1][pieceX - 1] >
+                            20
                     ) {
                         layout[pieceY][pieceX - 1] = 0;
                         layout[pieceY + 1][pieceX - 1] = 0;
@@ -431,8 +431,8 @@ document
                     } else if (
                         mouseX > pieceX &&
                         layout[pieceY][pieceX + 2] +
-                        layout[pieceY + 1][pieceX + 2] >
-                        20
+                            layout[pieceY + 1][pieceX + 2] >
+                            20
                     ) {
                         layout[pieceY][pieceX + 2] = 0;
                         layout[pieceY + 1][pieceX + 2] = 0;
