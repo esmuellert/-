@@ -1,13 +1,15 @@
+/*global saveImg*/
+
 let layout = [
-    [1, 0, 0, 2],
-    [1, 0, 0, 2],
-    [3, 5, 5, 4],
-    [3, 6, 7, 4],
-    [8, 10, 11, 9],
+    [2, 3, 8, 9],
+    [2, 3, 0, 0],
+    [6, 11, 0, 0],
+    [5, 5, 1, 4],
+    [10, 7, 1, 4],
 ];
 
-const origin = [0, 0];
-
+let chessboardOrigin = [];
+let unit;
 const pieceIndex = {
     0: "caocao",
     1: "zhangfei",
@@ -40,7 +42,7 @@ function renderInterface() {
     // Get the height and width of screen
     var screenWidth = window.innerWidth;
     var screenHeight = window.innerHeight;
-    unit = Math.floor(screenHeight / 7);
+    const unit = Math.floor(screenHeight / 7);
 
     // Adjust the positon of the chessboard
     var chessboard = document.getElementById("chessboard");
@@ -51,21 +53,21 @@ function renderInterface() {
     chessboard.style.position = "relative";
     chessboard.style.width = 4 * unit + "px";
     chessboard.style.height = 5 * unit + "px";
-    origin[0] = ((screenWidth - 4 * unit) * 5) / 6;
-    origin[1] = (screenHeight - 5 * unit) / 2;
-    if (origin[0] < 7 * unit) {
-        origin[0] = 7 * unit;
+    chessboardOrigin[0] = ((screenWidth - 4 * unit) * 5) / 6;
+    chessboardOrigin[1] = (screenHeight - 5 * unit) / 2;
+    if (chessboardOrigin[0] < 7 * unit) {
+        chessboardOrigin[0] = 7 * unit;
     }
-    chessboard.style.left = origin[0] + "px";
-    chessboard.style.top = origin[1] + "px";
+    chessboard.style.left = chessboardOrigin[0] + "px";
+    chessboard.style.top = chessboardOrigin[1] + "px";
 
     var background = document.getElementById("chessBackground");
     background.style.width = 8 * unit + "px";
     background.style.height = 7 * unit + "px";
     background.style.display = "inline";
     background.style.position = "absolute";
-    background.style.left = -1.93 * unit + origin[0] + "px";
-    background.style.top = -0.7 * unit + origin[1] + "px";
+    background.style.left = -1.93 * unit + chessboardOrigin[0] + "px";
+    background.style.top = -0.7 * unit + chessboardOrigin[1] + "px";
 
     // chessboard.style.display = "block";
     var selectArea = document.getElementById("selectArea");
@@ -74,8 +76,9 @@ function renderInterface() {
     selectArea.style.position = "absolute";
     selectArea.style.width = selectAreaWidth * unit + "px";
     selectArea.style.height = selectAreaHeight * unit + "px";
-    selectArea.style.left = (origin[0] - selectAreaWidth * unit) / 2 + "px";
-    selectArea.style.top = origin[1] + "px";
+    selectArea.style.left =
+        (chessboardOrigin[0] - selectAreaWidth * unit) / 2 + "px";
+    selectArea.style.top = chessboardOrigin[1] + "px";
 
     var hrd = document.getElementById("hrd");
     hrd.style.textAlign = "center";
@@ -257,7 +260,7 @@ function renderHorizontal(chess, i, j, tempLayout) {
     tempLayout[i][j + 1] = -1;
 }
 
-function renderSquare(chess, i, j, tempLayout) {
+function renderSquare(chess, i, j) {
     chess.style.position = "absolute";
     chess.style.width = unit + "px";
     chess.style.height = unit + "px";
@@ -280,7 +283,7 @@ document
             pos3 = event.clientX,
             pos4 = event.clientY,
             z = target.style.zIndex;
-        let move = function (event) {
+        const move = function (event) {
             pos1 = pos3 - event.clientX;
             pos2 = pos4 - event.clientY;
             pos3 = event.clientX;
@@ -289,12 +292,16 @@ document
             target.style.top = target.offsetTop - pos2 + "px";
             target.style.left = target.offsetLeft - pos1 + "px";
         };
-        let stop = function (event) {
+        const stop = function (event) {
             document.removeEventListener("mousemove", move);
             document.removeEventListener("mouseup", stop);
             target.style.zIndex = "0";
-            const mouseX = Math.floor((event.clientX - origin[0]) / unit);
-            const mouseY = Math.floor((event.clientY - origin[1]) / unit);
+            const mouseX = Math.floor(
+                (event.clientX - chessboardOrigin[0]) / unit
+            );
+            const mouseY = Math.floor(
+                (event.clientY - chessboardOrigin[1]) / unit
+            );
             const pieceX = piecePos[target.id][1];
             const pieceY = piecePos[target.id][0];
 
@@ -441,7 +448,6 @@ document
                     }
                 }
             }
-
             target.style.zIndex = z;
             renderChessboard(layout);
         };
