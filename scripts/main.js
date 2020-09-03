@@ -1,15 +1,15 @@
 /*global saveImg*/
 
-let layout = [
-    [2, 3, 8, 9],
-    [2, 3, 0, 0],
-    [6, 11, 0, 0],
-    [5, 5, 1, 4],
-    [10, 7, 1, 4],
-];
-
 let chessboardOrigin = [];
 let unit;
+let piecePos = {};
+let layout = [
+    [1, 0, 0, 2],
+    [1, 0, 0, 2],
+    [3, 5, 5, 4],
+    [3, 6, 7, 4],
+    [8, 10, 11, 9],
+];
 const pieceIndex = {
     0: "caocao",
     1: "zhangfei",
@@ -24,8 +24,6 @@ const pieceIndex = {
     10: "chessboard1",
     11: "chessboard2",
 };
-
-let piecePos = {};
 
 window.onload = function () {
     renderInterface();
@@ -42,7 +40,7 @@ function renderInterface() {
     // Get the height and width of screen
     var screenWidth = window.innerWidth;
     var screenHeight = window.innerHeight;
-    const unit = Math.floor(screenHeight / 7);
+    unit = Math.floor(screenHeight / 7);
 
     // Adjust the positon of the chessboard
     var chessboard = document.getElementById("chessboard");
